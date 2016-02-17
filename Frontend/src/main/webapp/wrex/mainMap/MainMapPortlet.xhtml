@@ -1,0 +1,230 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:wiklimb="http://java.sun.com/jsf/composite/wiklimb">
+
+
+
+<div class="geolocation_panel_embbedded" id="geoSearch">
+	<input type="button" id="toggleFullscreen"
+		value="#{i18n.mainMap_fullScreen}" onclick="toggleFullScreen();" /> <input
+		id="address" value="" placeholder="#{i18n.tip_address}" /> <input
+		type="button" id="searchGeo" value="#{i18n.search}"
+		onclick="codeAddress()" />
+</div>
+
+
+
+<h:form id="formMainMap" prependId="false">
+	<h:inputHidden id="lat" value="#{mainMapController.lat}" />
+	<h:inputHidden id="lng" value="#{mainMapController.lng}" />
+	<p:growl id="growl" showDetail="false" />
+	<style>
+.main_stats {
+	font-weight: bold;
+	text-align: center;
+	height: 140px;
+	background: url('/images/portada.jpg');
+	font-size: xx-large;
+	background-attachment: fixed;
+	background-position: center center;
+	background-size: cover;
+}
+
+.main_stats .ui-panel-content {
+	color: white !important;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.col_alignTop {
+	vertical-align: top;
+}
+</style>
+	<h:panelGroup id="dataPanel">
+		<p:gmap center="#{mainMapController.lat}, #{mainMapController.lng}"
+			zoom="#{mainMapController.zoom}" type="HYBRID" widgetVar="map"
+			styleClass="#{mainMapController.mapStyle}"
+			model="#{mainMapController.markers}" disableDefaultUI="false"
+			rendered="#{devController.net}" id="mainMap">
+			<p:ajax event="overlaySelect"
+				listener="#{mainMapController.onMarkerSelect}" />
+			<p:ajax event="stateChange"
+				listener="#{mainMapController.onStatusChange}" />
+			<p:gmapInfoWindow id="infoWindow">
+				<p:link outcome="locationInfo">
+					<p:panel
+						rendered="#{not empty mainMapController.selectedLocation.idpicture}">
+						<IMG
+							src="/wiklimbImages/thumb_#{mainMapController.selectedLocation.idpicture}"
+							width="120" style="padding: 1px" />
+					</p:panel>
+					<p:panel
+						rendered="#{empty mainMapController.selectedLocation.idpicture}">
+						<IMG src="/wiklimbImages/noimage.jpg" width="120"
+							style="padding: 1px" />
+					</p:panel>
+					<h:outputText value="#{mainMapController.selectedLocation.name}" />
+					<f:param name="idLocation"
+						value="#{mainMapController.selectedLocation.idlocation}" />
+					<f:param name="locName"
+						value="#{mainMapController.selectedLocation.name}" />
+				</p:link>
+				<br />
+				<p:outputPanel style="width:260px">
+					<wiklimb:locationFacts
+						location="#{mainMapController.selectedLocation}" size="small" />
+				</p:outputPanel>
+			</p:gmapInfoWindow>
+		</p:gmap>
+	</h:panelGroup>
+	<p:outputLabel id="leyenda" style="font-weight:bold">#{i18n.mainMap_caption}</p:outputLabel>
+	<p:tooltip for="leyenda">
+		<ui:repeat var="type" value="#{comboController.routeTypeList}">
+			<p:panelGrid columns="2" styleClass="no-border">
+				<img src="/icon/#{type.type}.png" />
+				<h:outputLabel value="#{i18nBean.get(type.type)}"
+					style="vertical-align:middle"></h:outputLabel>
+			</p:panelGrid>
+		</ui:repeat>
+	</p:tooltip>
+	<p:panel>
+		<p:panelGrid columns="2" styleClass="no-border">
+			<p:outputLabel value="#{i18n.mainMap_selectType}"></p:outputLabel>
+			<p:selectManyButton value="#{mainMapController.filter}" id="typeList">
+				<f:selectItems value="#{comboController.routeTypeList}"
+					var="routeType" itemLabel="#{i18nBean.get(routeType.type)}"
+					itemValue="#{routeType.idroutetype}" />
+				<p:ajax update="dataPanel" listener="#{mainMapController.filterMap}"
+					oncomplete="clusterMarkers();"></p:ajax>
+			</p:selectManyButton>
+		</p:panelGrid>
+	</p:panel>
+	<p:spacer height="30" />
+	<p:panel styleClass="main_stats">
+		 #{statsController.numLocation} #{i18n.climb_location} #{statsController.numRoute} #{i18n.routes} #{statsController.numUser} #{i18n.users}
+	</p:panel>
+	<p:spacer height="30" />
+	<p:panelGrid styleClass="no-border" columns="3" layout="grid"
+		columnClasses="col_alignTop,col_alignTop,col_alignTop">
+		<ui:include src="/wiklimb/widgets/latestsComments.xhtml"></ui:include>
+		<ui:include src="/wiklimb/widgets/latestsLocations.xhtml"></ui:include>
+		<p:panel>
+			<h2>#{i18n.mainMap_hithere}</h2>
+			<p:outputLabel value="#{i18n.mainMap_Welcome}" />
+			<h2>#{i18n.mainMap_why}</h2>
+			<p:outputLabel value="#{i18n.mainMap_whyDesc}" />
+			<h2>#{i18n.mainMap_how}</h2>
+			<p:outputLabel value="#{i18n.mainMap_howDesc}" />
+		</p:panel>
+	</p:panelGrid>
+	<p:remoteCommand name="setLatLng"
+		actionListener="#{mainMapController.setLatLng}"></p:remoteCommand>
+	<p:remoteCommand name="toogleMapStyle"
+		actionListener="#{mainMapController.toogleMapStyle}"></p:remoteCommand>
+</h:form>
+
+<script type="text/javascript"
+	src="./wiklimb/js/markerclusterer_compiled.js" />
+<script type="text/javascript" src="/wiklimb/js/geolocation.js" />
+<script type="text/javascript" src="/wiklimb/js/paraxify.min.js"></script>
+
+<script>
+	$(document).keyup(function(event) {
+		if (event.keyCode == 27) {
+			event.preventDefault();
+			if ($("#mainMap").css("position") === "fixed")
+				toggleFullScreen();
+		}
+	});
+
+	function toggleFullScreen() {
+		$("#mainMap").toggleClass("map_fullscreen map_embbeded");
+		toogleMapStyle();
+		$("#typeList").toggleClass("filtermap_panel_fullscreen");
+		$("#geoSearch").toggleClass(
+				"geolocation_panel_fullscreen geolocation_panel_embbedded");
+		if ($("#mainMap").css("position") === "fixed") {
+			$("#toggleFullscreen").prop('value', "#{i18n.close} (Esc)");
+		} else {
+			$("#toggleFullscreen").prop('value', "#{i18n.mainMap_fullScreen}");
+		}
+		google.maps.event.trigger(PF('map').map, "resize");
+	}
+
+	$("#address").keyup(function(event) {
+		if (event.keyCode == 13) {
+			$("#searchGeo").click();
+		}
+	});
+
+	function clusterMarkers() {
+		var mcOptions = {
+			gridSize : 30,
+			maxZoom : 13
+		};
+		var mc = new MarkerClusterer(PF('map').map, PF('map').map.markers,
+				mcOptions);
+		var tmp = PF('map').map.fitBounds;
+		PF('map').map.fitBounds = google.maps.Map.prototype.fitBounds;
+	}
+
+	$(window)
+			.load(
+					function() {
+						paraxify('.main_stats');
+						clusterMarkers();
+						//replace the code by the one provided by google maps api
+
+						if (navigator.geolocation) {
+							checkGeolocationByHTML5();
+						} else {
+							checkGeolocationByLoaderAPI(); // HTML5 not supported! Fall back to Loader API.
+						}
+
+						function checkGeolocationByHTML5() {
+							navigator.geolocation
+									.getCurrentPosition(
+											function(position) {
+												setMapCenter(
+														position.coords.latitude,
+														position.coords.longitude);
+												document
+														.getElementById('formMainMap:lat').value = position.coords.latitude;
+												document
+														.getElementById('formMainMap:lng').value = position.coords.longitude;
+												setLatLng();
+											}, function() {
+												checkGeolocationByLoaderAPI(); // Error! Fall back to Loader API.
+											});
+						}
+
+						function checkGeolocationByLoaderAPI() {
+							if (google.loader.ClientLocation) {
+								setMapCenter(
+										google.loader.ClientLocation.latitude,
+										google.loader.ClientLocation.longitude);
+								document.getElementById('formMainMap:lat').value = position.coords.latitude;
+								document.getElementById('formMainMap:lng').value = position.coords.longitude;
+							} else {
+								//If not user position, defualt to Santiago Chile
+								PF('map').getMap().setCenter(
+										new google.maps.LatLng(-33.4641,
+												-71.0817));
+							}
+						}
+
+						function setMapCenter(latitude, longitude) {
+							PF('map').getMap()
+									.panTo(
+											new google.maps.LatLng(latitude,
+													longitude));
+						}
+					});
+</script>
+</html>
+

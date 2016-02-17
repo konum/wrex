@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/_MainLayout.xhtml">
+    	<ui:define name="title">
+    		<ui:insert name="title">#{i18n.pageNotFoundTitle}</ui:insert>
+    	</ui:define>
+    	<ui:define name="heading">
+    		<h:outputText value="Menu" />
+    	</ui:define>
+		<ui:define name="body">
+			<p>#{i18n.pageNotFoundBodyPart1} #{requestScope['javax.servlet.forward.request_uri']} #{i18n.pageNotFoundBodyPart2}</p>
+    	</ui:define>
+    </ui:composition>
+</html>	

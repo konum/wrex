@@ -1,0 +1,17 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<p:carousel numVisible="1" value="#{newPostsController.postList}" var="post" effect="easeInStrong" styleClass="no-border"
+ headerText="#{i18n.latest_news}"   >
+	<p:panel style="width:1200px; height: 140px;">
+		<h:outputLabel value="#{post.title}" /><br/>
+		<h:outputLabel value="#{post.postdate}" style="font-size:x-small" ><br/>
+			<f:convertDateTime pattern="dd-MM-yyyy hh:mm:ss" />
+		</h:outputLabel>
+		<h:outputText value="#{post.post}" /><br/>
+	</p:panel>
+</p:carousel>
+</ui:fragment>

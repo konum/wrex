@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:wiklimb="http://java.sun.com/jsf/composite/wiklimb">
+<ui:composition template="/_MainLayout.xhtml">
+	<ui:define name="title">
+		<h:outputText value="Preferencias" />
+	</ui:define>
+	<ui:define name="body">
+		<div style="height: 30px;" />
+		<p:growl id="growl" autoUpdate="false"></p:growl>
+		<h:form id="form" rendered="#{loginBean.logged}"
+			enctype="multipart/form-data">
+			<p:outputLabel value="#{i18n.user_panel}" styleClass="section-header" />
+			<p:panelGrid columns="2" styleClass="no-border">
+				<h:panelGroup id="userPic">
+					<img src="/wrexImages/#{userPanelController.user.idpicture}"
+						height="150" />
+				</h:panelGroup>
+				<p:panelGrid columns="2" styleClass="no-border">
+					<p:outputLabel value="#{i18n.userEmail}" />
+					<p:outputLabel value="#{userPanelController.user.email}" />
+					<p:outputLabel value="#{i18n.userName}" />
+					<p:outputLabel value="#{userPanelController.user.name}" />
+					<p:outputLabel value="#{i18n.user_changePassword}" />
+					<p:password value="#{userPanelController.password}" />
+					<p:outputLabel value="#{i18n.repeatPassword}" />
+					<p:password value="#{userPanelController.repeteadPassword}" />
+					<p:outputLabel value="#{i18n.user_changePhoto}" />
+					<p:fileUpload id="imageUpload" uploadLabel="#{i18n.upload}"
+						cancelLabel="#{i18n.cancel}" label="#{i18n.search}"
+						fileLimitMessage="#{i18n.fileToBig}"
+						invalidFileMessage="#{i18n.invalidFile}"
+						invalidSizeMessage="#{i18n.fileToBig}" auto="true"
+						fileUploadListener="#{userPanelController.handleFileUpload}"
+						dragDropSupport="false" sizeLimit="20000000"
+						allowTypes="/(\.|\/)(gif|jpe?g|png)$/" update="userPic,growl">
+					</p:fileUpload>
+				</p:panelGrid>
+			</p:panelGrid>
+			<p:panelGrid columns="2" styleClass="no-border">
+				<p:spacer width="300" height="1"></p:spacer>
+				<p:commandButton value="#{i18n.save}" icon="fa fa-save"
+					update="form, :form:userMessages"
+					actionListener="#{userPanelController.save}"></p:commandButton>
+			</p:panelGrid>
+			<p:messages id="userMessages" autoUpdate="false">
+			</p:messages>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

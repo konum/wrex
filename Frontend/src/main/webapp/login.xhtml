@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/_MainLayout.xhtml">
+	<ui:define name="title">
+		<h:outputText value="Entra en tu cuenta" />
+	</ui:define>
+	<ui:define name="body">
+		<h:form id="formLogin" rendered="#{not loginBean.logged}">
+			<p:panel style="width:323px; margin:auto; margin-top:20px;"
+				styleClass="postDiv">
+				<f:facet name="header">Login</f:facet>
+				<h:panelGrid columns="2" styleClass="no-border" > 
+					<p:outputLabel value="#{i18n.userEmail}" />
+					<p:inputText value="#{loginBean.userName}" required="true"
+						requiredMessage="#{i18n.user_emailRequired}">
+
+					</p:inputText>
+					<p:outputLabel value="#{i18n.password} " />
+					<p:password value="#{loginBean.password}" required="true"
+						requiredMessage="#{i18n.user_passRequired}"></p:password>
+				</h:panelGrid>
+
+				<p:messages id="loginErrorNonDialog" autoUpdate="false"></p:messages>
+				<p:commandButton value="#{i18n.login}" style="float:right" 
+					actionListener="#{loginBean.loginNoReload()}" update="loginErrorNonDialog"></p:commandButton>
+				<br />
+				<a class="underline" onclick="PF('forgotPasswordDialog').show();">#{i18n.user_forgotPassword}</a>
+				<br />
+				<br />
+				<div id="fb-root"></div>
+				<script>
+					//<![CDATA[
+					document
+							.write('<fb:login-button scope="public_profile,email" size="large" onlogin="checkLoginState();">#{i18n.loginFb}</fb:login-button>');
+
+					//]]>
+				</script>
+			</p:panel>
+		</h:form>
+		<p:outputLabel rendered="#{loginBean.logged}"
+			value="#{i18n.user_logged}">
+		</p:outputLabel>
+	</ui:define>
+</ui:composition>
+</html>

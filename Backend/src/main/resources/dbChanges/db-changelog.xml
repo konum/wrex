@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+	<!-- Learn more about liquibase at http://www.liquibase.org/ -->
+	<changeSet id="events" author="wrexDeveloper">
+		<!-- event table -->
+		<createTable schemaName="wrex" tableName="event">
+			<column name="idEvent" type="integer" autoIncrement="true">
+				<constraints primaryKey="true" primaryKeyName="pk_event" />
+			</column>
+			<column name="idUser" type="integer" />
+			<column name="text" type="varchar(3000)" />
+			<column name="eventDate" type="timestamp" />
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="idUser"
+			baseTableName="event" constraintName="fk_event_user" onDelete="CASCADE"
+			onUpdate="NO ACTION" referencedColumnNames="idUser"
+			referencedTableName="user" />
+	</changeSet>
+</databaseChangeLog>

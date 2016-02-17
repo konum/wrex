@@ -1,0 +1,294 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:wiklimb="http://java.sun.com/jsf/composite/wiklimb">
+<composite:interface>
+	<composite:attribute name="eventList" required="true"
+		type="java.util.List" />
+</composite:interface>
+
+<composite:implementation>
+	<style>
+.eventHeader {
+	font-size: 0.8em;
+}
+
+.eventText {
+	margin-top: 10px;
+	min-height: 80px;
+}
+
+.eventWith {
+	
+}
+
+.eventDiv {
+	padding: 5px;
+	box-shadow: 0px 0px 5px 1px #888888;
+	margin-top: 10px;
+}
+
+.eventList .ui-widget-content {
+	border: 0px;
+	!
+	important
+}
+
+.commentEntry {
+	margin-bottom: 10px;
+}
+
+.commentPicCol {
+	vertical-align: baseline;
+}
+</style>
+	<p:dataList type="none" value="#{cc.attrs.eventList}" var="event"
+		rowIndexVar="count" id="eventList" styleClass="eventList"
+		emptyMessage="">
+		<div class="eventDiv">
+			<p:panelGrid styleClass="no-border" columns="2">
+				<wiklimb:userImage value="#{event.user.idpicture}"
+					iduser="#{event.user.iduser}" />
+				<h:panelGroup class="eventHeader">
+					<a href="/user/profile/#{event.user.iduser}">#{event.user.name}</a>
+					<p:link outcome="locationInfo"
+						rendered="#{not empty event.location}">
+						<h:outputText value=" en #{event.location.name}" />
+						<f:param name="idLocation" value="#{event.location.idlocation}" />
+						<f:param name="locName" value="#{event.location.name}" />
+					</p:link>
+					<br />
+					<h:outputText value="#{event.eventDate}">
+						<f:convertDateTime pattern="dd/MM/yyyy hh:mm"></f:convertDateTime>
+					</h:outputText>
+				</h:panelGroup>
+			</p:panelGrid>
+			<div class="eventText">
+				<h:outputText value="#{event.text}"></h:outputText>
+				<h:outputText
+					value="Ha editado la zona de escalada #{event.location.name}."
+					rendered="#{event.type eq 6}"></h:outputText>
+			</div>
+			<h:panelGroup rendered="#{not empty event.pictureEdit}">
+				<div class="popup-gallery">
+					<ui:repeat var="pic" value="#{event.pictureEdit}">
+						<a href="/wiklimbImages/#{pic.idPicture}"
+							title="Foto #{i18nBean.get('editType_a'.concat(pic.type))}"><img
+							src="/wiklimbImages/thumb_#{pic.idPicture}" height="100" /></a>
+					</ui:repeat>
+				</div>
+			</h:panelGroup>
+			<p:accordionPanel activeIndex="-1" dynamic="false">
+				<p:tab title="#{i18n.location_generalInfo}"
+					rendered="#{not empty event.locationInfo}">
+					<h:panelGroup
+						rendered="#{not empty event.locationInfo.description}">
+						<b>#{i18n.location_description}</b>
+						<br />
+						<h:outputText value="#{event.locationInfo.description}"
+							styleClass="linebreak" />
+						<br />
+					</h:panelGroup>
+					<h:panelGroup rendered="#{not empty event.locationInfo.directions}">
+						<b>#{i18n.location_directions}</b>
+						<br />
+						<h:outputText value="#{event.locationInfo.directions}"
+							styleClass="linebreak" />
+						<br />
+					</h:panelGroup>
+					<h:panelGroup rendered="#{not empty event.locationInfo.danger}">
+						<b>#{i18n.location_danger}</b>
+						<br />
+						<h:outputText value="#{event.locationInfo.danger}"
+							styleClass="linebreak" />
+						<br />
+					</h:panelGroup>
+					<h:panelGroup rendered="#{not empty event.locationInfo.info}">
+						<b>#{i18n.location_info}</b>
+						<br />
+						<h:outputText value="#{event.locationInfo.info}"
+							styleClass="linebreak" />
+						<br />
+					</h:panelGroup>
+					<h:panelGroup rendered="#{not empty event.locationInfo.links}">
+						<b>#{i18n.location_links}</b>
+						<br />
+						<h:outputText value="#{event.locationInfo.links}"
+							styleClass="linebreak" />
+						<br />
+					</h:panelGroup>
+				</p:tab>
+				<p:tab title="#{i18n.Sectors}"
+					rendered="#{not empty event.sectorEdit}">
+					<ui:repeat var="sector" value="#{event.sectorEdit}">
+						<h:outputText
+							value="#{i18nBean.get('editType'.concat(sector.type))} #{i18n.the} #{i18n.sector} #{sector.name}" />
+						<br />
+						<h:outputText
+							value="#{i18nBean.get('editType'.concat(sector.type))} #{i18n.the} #{i18n.sector} #{sector.description}" />
+						<br />
+					</ui:repeat>
+				</p:tab>
+				<p:tab title="#{i18n.Croquis}"
+					rendered="#{not empty event.croquisEdit}">
+					<div class="popup-gallery">
+						<ui:repeat var="croq" value="#{event.croquisEdit}">
+							<h:panelGroup rendered="#{not empty croq.idPicture}">
+								<a href="/wiklimbImages/#{croq.idPicture}"
+									title="#{i18nBean.get('editType'.concat(croq.type))} #{croq.name} "><img
+									src="/wiklimbImages/thumb_#{croq.idPicture}" height="100" /></a>
+							</h:panelGroup>
+						</ui:repeat>
+					</div>
+				</p:tab>
+				<p:tab title="#{i18n.Routes}"
+					rendered="#{not empty event.routesEdit}">
+					<ui:repeat var="route" value="#{event.routesEdit}">
+						<h:outputText
+							value="#{i18nBean.get('editType'.concat(route.type))} #{i18n.the_a} #{i18n.route} #{route.routeDesc}" />
+						<br />
+					</ui:repeat>
+				</p:tab>
+			</p:accordionPanel>
+			<div class="eventWith">
+				<h:outputText value="con" rendered="#{not empty event.usersEvent}" />
+				<ui:repeat value="#{event.usersEvent.toArray()}" var="user">
+					<a href="/user/profile/#{user.iduser}">#{user.name}</a>
+				</ui:repeat>
+			</div>
+			<div class="eventWith">
+				<h:outputText value="ha escalado "
+					rendered="#{not empty event.routesClimbed}" />
+				<ui:repeat value="#{event.routesClimbed}" var="route">
+					<h:outputText value="#{route.name} #{route.grade.toString()}" />,
+								</ui:repeat>
+			</div>
+			<h:panelGroup rendered="#{not empty event.eventpictures}">
+				<div class="popup-gallery">
+					<ui:repeat var="pic" value="#{event.eventpictures}">
+						<a href="/wiklimbImages/#{pic.pictureId}" title="#{pic.title}"
+							username="#{pic.user.name}" iduser="#{pic.user.iduser}"><img
+							src="/wiklimbImages/thumb_#{pic.pictureId}" height="100" /></a>
+					</ui:repeat> 
+				</div>
+			</h:panelGroup>
+			<hr />
+			<ul class="share-btn-wrp" style="margin-top: -7px;float:right;">
+					<li class="facebook button-wrap" url="http://wiklimb.com/event/#{event.idEvent}" title="Compartir en Facebook">Facebook</li>
+					<li class="twitter button-wrap" url="http://wiklimb.com/event/#{event.idEvent}" title="Compartir en Twitter">Tweet</li>
+					<li class="gplus button-wrap" url="http://wiklimb.com/event/#{event.idEvent}" title="Compartir en Google+">Google+</li>
+				</ul>
+			<h:panelGroup id="evenCommentCount" rendered="#{loginBean.logged}">
+				<a onclick="$('#eventComments#{event.idEvent}').toggle(600)">#{event.eventcomments.size()}
+					Comentarios</a>
+			</h:panelGroup>
+			<div id="eventComments#{event.idEvent}" style="display: none">
+				<h:form rendered="#{loginBean.logged}">
+					<h:panelGroup id="eventCommentList">
+						<ui:repeat var="comment" value="#{event.eventcomments}">
+							<p:panelGrid styleClass="no-border commentEntry" columns="3"
+								columnClasses="commentPicCol, commentTextCol">
+								<p:link href="/user/profile/#{comment.user.iduser}">
+									<wiklimb:userImage value="#{comment.user.idpicture}"
+										iduser="#{comment.user.iduser}" />
+								</p:link>
+								<h:panelGroup>
+									<p:link href="/user/profile/#{comment.user.iduser}">
+										<h:outputText value="#{comment.user.name} "
+											style="font-size:0.8em;" />
+									</p:link>
+									<h:outputText value="#{comment.postDate}"
+										style="font-size:0.7em;">
+										<f:convertDateTime pattern="dd-MM-yyy hh:mm"></f:convertDateTime>
+									</h:outputText>
+									<br />
+									<h:outputText value="#{comment.text}"></h:outputText>
+								</h:panelGroup>
+							</p:panelGrid>
+						</ui:repeat>
+					</h:panelGroup>
+					<p:inputTextarea rows="3" value="#{commentEventBean.text}"
+						maxlength="300" id="newCommentInput" style="width:95%;" />
+					<p:commandButton value="Comentar"
+						actionListener="#{commentEventBean.post(event)}"
+						update="eventCommentList,newCommentInput,:parent:eventList:#{count}:evenCommentCount"
+						style="float:right;display:block;">
+					</p:commandButton>
+				</h:form>
+				<p:spacer height="30px" />
+			</div>
+		</div>
+	</p:dataList>
+	<style>
+.flexslider {
+	margin: 0px;
+}
+
+.flex-caption {
+	float: left;
+	position: absolute;
+	left: 0px;
+	top: 250px;
+	height: 150px;
+	width: 100%;
+	/* 	background: rgba(0, 0, 0, .5); */
+	color: #fff;
+	line-height: 18px;
+	font-weight: bolder;
+	font-size: 1em;
+	background-color: rgbas(0, 0, 0, 0.4);
+	white-space: pre;
+}
+
+.flex-caption .text {
+	position: relative;
+	top: 50%;
+	transform: translateY(-81%);
+}
+
+.slides {
+	height: 400px;
+	/* 	transition: none !important; */
+	overflow: hidden;
+}
+
+.slides a {
+	cursor: zoom-in;
+}
+
+.flex-control-nav img {
+	height: 70px;
+	width: auto !important;
+	/* 	min-width: 533px; */
+}
+
+.flex-control-thumbs li {
+	width: auto;
+}
+
+.slides img {
+	height: 100%;
+	width: auto !important;
+	min-width: 533px;
+}
+</style>
+	<script type='text/javascript'>
+		$(window).load(function() {
+			$('.flexslider').flexslider({
+				animation : "slide",
+				controlNav : "thumbnails"
+			});
+		});
+
+		function flexslider() {
+			$('.flexslider').flexslider({
+				animation : "slide",
+				controlNav : "thumbnails"
+			});
+		}
+	</script>
+</composite:implementation>
+</html>

@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:panelGrid columns="2" styleClass="no-border">
+		<p:outputLabel value="#{i18n.userEmail}"/>
+		<p:inputText value="#{registerBean.register.email}" required="true" requiredMessage="#{i18n.user_emailRequired}" validatorMessage="#{i18n.user_emailError}">
+			<f:validateRegex
+				pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+		</p:inputText>
+		<p:outputLabel value="#{i18n.userName}"/>
+		<p:inputText value="#{registerBean.register.name}" required="true" requiredMessage="#{i18n.user_nameRequired}"/>
+		<p:outputLabel value="#{i18n.password}"/>
+		<p:password value="#{registerBean.register.password}" required="true" requiredMessage="#{i18n.user_passRequired}"/>
+		<p:outputLabel value="#{i18n.repeatPassword}"/>
+		<p:password value="#{registerBean.repeteadPassword}" required="true" requiredMessage="#{i18n.user_pass2Required}"/>
+	</p:panelGrid>
+	<p:messages id="registerMessages" autoUpdate="true" > </p:messages>
+	<div id="fb-root"></div>
+<script>
+	//<![CDATA[
+document
+	.write('<fb:login-button scope="public_profile,email" size="large" onlogin="checkLoginState();">#{i18n.loginFb}</fb:login-button>');
+
+	//]]>
+</script>
+	<p:commandButton value="#{i18n.register}" style="float:right" update="registerMessages" actionListener="#{registerBean.register}"></p:commandButton>
+	<p:notificationBar id="registerBar" position="top" effect="slide" 
+			styleClass="top" widgetVar="registerBar">
+			<h:outputText
+				value="#{i18n.user_created} "
+				style="font-size:36px;" />
+			<p:commandLink outcome="locationInfo" value="#{i18n.close}"
+				style="font-size:36px;" onclick="PF('registerBar').hide()"/>
+		</p:notificationBar>
+</html>

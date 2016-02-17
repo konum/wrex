@@ -1,0 +1,215 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:wiklimb="http://java.sun.com/jsf/composite/wiklimb">
+
+
+<ui:composition template="/_MainLayout.xhtml">
+	<ui:define name="title">
+		<h:outputText value="#{i18n.explore} - #{i18n.generalTitle} " />
+	</ui:define>
+	<ui:define name="heading">
+		<h:outputText value="#{i18n.listHeading}" />
+	</ui:define>
+	<ui:define name="body">
+		<style>
+		section{
+			width: 100%;
+			margin-left: 0;
+		}
+		.map-legend {
+			position: absolute;
+			bottom: 15px;
+			right: 5px;
+			z-index: 1000;
+			/* 	background-color: white; */
+			 	border: 1px solid white; 
+			 	border-radius: 10px; 
+			 	padding:10px;
+			color: black;
+			background-color: rgba(255,255,255,0.7);
+			font-weight: bold;
+			font-size: 
+		}
+</style>
+		<p:ajaxStatus onstart="PF('statusDialog').hide()"
+			onsuccess="PF('statusDialog').hide()" />
+		<div class="geolocation_panel_fullscreen" id="geoSearch">
+			<input id="address" value="" placeholder="#{i18n.tip_address}" /> <input
+				type="button" id="searchGeo" value="#{i18n.search}"
+				onclick="codeAddress()" />
+		</div>
+		<h:form id="formMainMap" prependId="false">
+			<h:inputHidden id="lat" value="#{mainMapController.lat}" />
+			<h:inputHidden id="lng" value="#{mainMapController.lng}" />
+			<p:outputLabel id="leyenda" styleClass="map-legend">#{i18n.mainMap_caption}</p:outputLabel>
+			<p:gmap center="#{mainMapController.lat}, #{mainMapController.lng}"
+				zoom="#{mainMapController.zoom}" type="HYBRID" widgetVar="map"
+				styleClass="map_fullscreen" model="#{mainMapController.markers}"
+				disableDefaultUI="false" rendered="#{devController.net}"
+				id="mainMap">
+				<p:ajax event="overlaySelect"
+					listener="#{mainMapController.onMarkerSelect}" />
+				<p:ajax event="stateChange"
+					listener="#{mainMapController.onStatusChange}" />
+				<p:gmapInfoWindow id="infoWindow">
+					<p:link outcome="locationInfo">
+						<p:panel
+							rendered="#{not empty mainMapController.selectedLocation.idpicture}">
+							<IMG
+								src="/wiklimbImages/#{mainMapController.selectedLocation.idpicture}"
+								width="120" style="padding: 1px" />
+						</p:panel>
+						<p:panel
+							rendered="#{empty mainMapController.selectedLocation.idpicture}">
+							<IMG src="/wiklimbImages/noimage.jpg" width="120"
+								style="padding: 1px" />
+						</p:panel>
+						<h:outputText value="#{mainMapController.selectedLocation.name}" />
+						<f:param name="idLocation"
+							value="#{mainMapController.selectedLocation.idlocation}" />
+						<f:param name="locName"
+							value="#{mainMapController.selectedLocation.name}" />
+					</p:link>
+					<br />
+					<p:outputPanel style="width:260px">
+						<wiklimb:locationFacts
+							location="#{mainMapController.selectedLocation}" size="small" />
+					</p:outputPanel>
+				</p:gmapInfoWindow>
+			</p:gmap>
+			<p:tooltip for="leyenda">
+				<ui:repeat var="type" value="#{comboController.routeTypeList}">
+					<p:panelGrid columns="2" styleClass="no-border">
+						<img src="/icon/#{type.type}.png" />
+						<h:outputLabel value="#{i18nBean.get(type.type)}"
+							style="vertical-align:middle"></h:outputLabel>
+					</p:panelGrid>
+				</ui:repeat>
+			</p:tooltip>
+			<p:panel>
+				<p:panelGrid columns="2" styleClass="no-border">
+					<p:outputLabel value="#{i18n.mainMap_selectType}"></p:outputLabel>
+					<p:selectManyButton value="#{mainMapController.filter}"
+						id="typeList" styleClass="filtermap_panel_fullscreen">
+						<f:selectItems value="#{comboController.routeTypeList}"
+							var="routeType" itemLabel="#{i18nBean.get(routeType.type)}"
+							itemValue="#{routeType.idroutetype}" />
+						<p:ajax update="mainMap" listener="#{mainMapController.filterMap}"
+							oncomplete="clusterMarkers();"></p:ajax>
+					</p:selectManyButton>
+				</p:panelGrid>
+			</p:panel>
+			<p:remoteCommand name="setLatLng"
+				actionListener="#{mainMapController.setLatLng}"></p:remoteCommand>
+			<p:remoteCommand name="toogleMapStyle"
+				actionListener="#{mainMapController.toogleMapStyle}"></p:remoteCommand>
+		</h:form>
+
+		<script type="text/javascript"
+			src="./wiklimb/js/markerclusterer_compiled.js" />
+		<script type="text/javascript" src="/wiklimb/js/geolocation.js" />
+
+		<script>
+			$(document).keyup(function(event) {
+				if (event.keyCode == 27) {
+					event.preventDefault();
+					if ($("#mainMap").css("position") === "fixed")
+						toggleFullScreen();
+				}
+			});
+
+			function toggleFullScreen() {
+				$("#mainMap").toggleClass("map_fullscreen map_embbeded");
+				toogleMapStyle();
+				$("#typeList").toggleClass("filtermap_panel_fullscreen");
+				$("#geoSearch")
+						.toggleClass(
+								"geolocation_panel_fullscreen geolocation_panel_embbedded");
+				if ($("#mainMap").css("position") === "fixed") {
+					$("#toggleFullscreen").prop('value', "#{i18n.close} (Esc)");
+				} else {
+					$("#toggleFullscreen").prop('value',
+							"#{i18n.mainMap_fullScreen}");
+				}
+				google.maps.event.trigger(PF('map').map, "resize");
+			}
+
+			$("#address").keyup(function(event) {
+				if (event.keyCode == 13) {
+					$("#searchGeo").click();
+				}
+			});
+
+			function clusterMarkers() {
+				var mcOptions = {
+					gridSize : 15,
+					maxZoom : 13
+				};
+				var mc = new MarkerClusterer(PF('map').map,
+						PF('map').map.markers, mcOptions);
+				var tmp = PF('map').map.fitBounds;
+				PF('map').map.fitBounds = google.maps.Map.prototype.fitBounds;
+			}
+
+			$(window)
+					.load(
+							function() {
+								clusterMarkers();
+								//replace the code by the one provided by google maps api
+
+								if (navigator.geolocation) {
+									checkGeolocationByHTML5();
+								} else {
+									checkGeolocationByLoaderAPI(); // HTML5 not supported! Fall back to Loader API.
+								}
+
+								function checkGeolocationByHTML5() {
+									navigator.geolocation
+											.getCurrentPosition(
+													function(position) {
+														setMapCenter(
+																position.coords.latitude,
+																position.coords.longitude);
+														document
+																.getElementById('formMainMap:lat').value = position.coords.latitude;
+														document
+																.getElementById('formMainMap:lng').value = position.coords.longitude;
+														setLatLng();
+													},
+													function() {
+														checkGeolocationByLoaderAPI(); // Error! Fall back to Loader API.
+													});
+								}
+
+								function checkGeolocationByLoaderAPI() {
+									if (google.loader.ClientLocation) {
+										setMapCenter(
+												google.loader.ClientLocation.latitude,
+												google.loader.ClientLocation.longitude);
+										document
+												.getElementById('formMainMap:lat').value = position.coords.latitude;
+										document
+												.getElementById('formMainMap:lng').value = position.coords.longitude;
+									} else {
+										//If not user position, defualt to Santiago Chile
+										PF('map').getMap().setCenter(
+												new google.maps.LatLng(
+														-33.4641, -71.0817));
+									}
+								}
+
+								function setMapCenter(latitude, longitude) {
+									PF('map').getMap().panTo(
+											new google.maps.LatLng(latitude,
+													longitude));
+								}
+							});
+		</script>
+	</ui:define>
+</ui:composition>
+</html>
+

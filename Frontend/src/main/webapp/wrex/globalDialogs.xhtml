@@ -1,0 +1,37 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:wiklimb="http://java.sun.com/jsf/composite/wiklimb">
+		<p:confirmDialog global="true" showEffect="fade">
+			<p:commandButton value="#{i18n.yes}" type="button"
+				styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+			<p:commandButton value="#{i18n.no}" type="button"
+				styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+		</p:confirmDialog>
+
+		<p:dialog widgetVar="loginDialog" width="400"
+			closable="true" resizable="false" header="#{i18n.login}" modal="true"
+			closeOnEscape="true" showEffect="fade"  rendered="#{not loginBean.logged}">
+			<h:form>
+				<ui:include src="/wrex/user/login.xhtml"></ui:include>
+			</h:form>
+		</p:dialog>
+		<ui:include src="/wrex/user/lostPasswordDialog.xhtml"></ui:include>
+		<p:dialog widgetVar="registerDialog" width="400"
+			closable="true" resizable="false" header="#{i18n.register}"
+			modal="true" closeOnEscape="true" showEffect="fade">
+			<h:form>
+				<ui:include src="/wrex/user/register.xhtml"></ui:include>
+			</h:form>
+		</p:dialog>
+		<p:dialog widgetVar="mustLogginDialog" width="400" closable="true"
+			resizable="false" header="#{i18n.information}" modal="true"
+			closeOnEscape="true" showEffect="fade">
+			<h:outputText value="#{i18n.mustBeLogged}"></h:outputText>
+			<p:commandButton value="#{i18n.close}"
+				onclick="PF('mustLogginDialog').hide()" style="float:right"></p:commandButton>
+		</p:dialog>
+</ui:fragment>

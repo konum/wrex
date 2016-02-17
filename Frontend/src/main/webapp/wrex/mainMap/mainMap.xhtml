@@ -1,0 +1,17 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/_MainLayout2.xhtml">
+	<ui:define name="title">
+		<h:outputText value="#{i18n.listTitle} #{i18n.of} Main Map" />
+	</ui:define>
+	<ui:define name="heading">
+		<h:outputText value="#{i18n.listHeading}" />
+	</ui:define>
+    <ui:define name="body">
+		<ui:include src="/wiklimb/mainMap/MainMapPortlet.xhtml"/>
+    </ui:define>
+</ui:composition>
+</html>
