@@ -7,12 +7,12 @@ One of the more pain in the ass parts in any project, is to get the environment 
 
 The main technologies are Primefaces, Spring, and Hibernate (using JPA), with maven to do all the building.  All using latest stable versions.
 
-What does includes?
+# What does includes?
 -A backend project for the domain and service layers, with all Database related stuff in it.
 -A frontend project for the view and its managedbeans, security, i18n and jetty for runing.
 -A basic model for user login, register.
 
-Goodies
+# Goodies
 -Facebook login example and register
 -Cluster markes for Primefaces map
 -Image resize using Clustr library (great open source linrary that uses Java 2D functions for scalign https://github.com/thebuzzmedia/imgscalr)
@@ -28,10 +28,13 @@ Goodies
 -Font awsome icons
 -Ehcache for Hibernate second level cache
 -File service for writing to disk files uploaded by the users.
+-Nice js lightbox library included
 
 
-The bad
+# The bad
 Wrex doesn't use DTOs or VO for moving data arount. Domain objets are used directly in the managed beans of the view. Why? Development speed, less code. Maybe it's not a great aproach for big enterprise scale projects, but after a a bunch of months developing like this for wiklimb I found it perfect for smaller projects. No cumberstone code and model changes are trivial to get to the view.  
 
-The future
+# The future
 Future updates depend on future functions of wiklimb, but expect trully junt testing using in-memory database in the backend project and REST services por exposing data.
+
+Image of wrex by: http://nancekievill.deviantart.com/art/Shep-and-Wrex-Commission-461196394
