@@ -1,4 +1,5 @@
 # Wrex
+![alt tag](https://raw.githubusercontent.com/konum/wrex/wrex.png)
 Primefaces, Spring and Hibernate archetype for starting projects. Fast. Minimal configuration and simple code as main objectives. May not be beatiful, but gets the job done. Like Wrex.
 
 For those that haven't played the great Mass Effect games Wrex won't mean a thing. But those who had played the know that Wrex is one of the last Krogan Battlemaster, likes to get things done, fast and simple. It's bloody, it's frightening, it's brutal but everyone loves it. 
@@ -37,4 +38,4 @@ Wrex doesn't use DTOs or VO for moving data arount. Domain objets are used direc
 # The future
 Future updates depend on future functions of wiklimb, but expect trully junt testing using in-memory database in the backend project and REST services por exposing data.
 
-Image of wrex by: http://nancekievill.deviantart.com/art/Shep-and-Wrex-Commission-461196394
+Image of wrex by: http://gelvuun.deviantart.com/art/Urdnot-Wrex-291676543#
