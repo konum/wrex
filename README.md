@@ -10,27 +10,27 @@ One of the more pain in the ass parts in any project, is to get the environment 
 The main technologies are Primefaces, Spring, and Hibernate (using JPA), with maven to do all the building.  All using latest stable versions.
 
 # What does includes?
--A backend project for the domain and service layers, with all Database related stuff in it.
--A frontend project for the view and its managedbeans, security, i18n and jetty for runing.
--A basic model for user login, register.
+- A backend project for the domain and service layers, with all Database related stuff in it.
+- A frontend project for the view and its managedbeans, security, i18n and jetty for runing.
+- A basic model for user login, register.
 
 # Goodies
--Facebook login example and register
--Cluster markes for Primefaces map
--Image resize using Clustr library (great open source linrary that uses Java 2D functions for scalign https://github.com/thebuzzmedia/imgscalr)
--Fileupload ready for PF uploadfile
--QueryDSL for writing queries in the DAO layer
--Liquibase for database changes. 
--Use of Maven SQL plugin for cleaning and loading the local database.
--Integration Junits to the local database.
--Password encryption
--Async mail sending
--Cron jobs using Spring @Scheduled
--Prettyfaces for permanent URL links and URl rewriting
--Font awsome icons
--Ehcache for Hibernate second level cache
--File service for writing to disk files uploaded by the users.
--Nice js lightbox library included
+- Facebook login example and register
+- Cluster markes for Primefaces map
+- Image resize using Clustr library (great open source linrary that uses Java 2D functions for scalign https://github.com/thebuzzmedia/imgscalr)
+- Fileupload ready for PF uploadfile
+- QueryDSL for writing queries in the DAO layer
+- Liquibase for database changes. 
+- Use of Maven SQL plugin for cleaning and loading the local database.
+- Integration Junits to the local database.
+- Password encryption
+- Async mail sending
+- Cron jobs using Spring @Scheduled
+- Prettyfaces for permanent URL links and URl rewriting
+- Font awsome icons
+- Ehcache for Hibernate second level cache
+- File service for writing to disk files uploaded by the users.
+- Nice js lightbox library included
 
 
 # The bad
