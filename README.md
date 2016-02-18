@@ -1,7 +1,6 @@
-# Wrex
-Primefaces, Spring and Hibernate archetype for starting projects. Fast. Minimal configuration and simple code as main objectives. May not be beatiful, but gets the job done. Like Wrex.
+![alt tag](https://github.com/konum/wrex/blob/master/header.png?raw=true)
 
-![alt tag](https://github.com/konum/wrex/blob/master/wrex.jpg?raw=true)
+Primefaces, Spring and Hibernate archetype for starting projects. Fast. Minimal configuration and simple code as main objectives. May not be beatiful, but gets the job done. Like Wrex.
 
 For those that haven't played the great Mass Effect games Wrex won't mean a thing. But those who had played the know that Wrex is one of the last Krogan Battlemaster, likes to get things done, fast and simple. It's bloody, it's frightening, it's brutal and everyone loves it. 
 
