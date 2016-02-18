@@ -46,7 +46,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Wrex Admin','admin@wrex.org','4d186321c1a7f0f354b297e8914ab240',1,'',1,''),(2,'Wrex user','user@wrex.org','4d186321c1a7f0f354b297e8914ab240',0,'',1,'');
+INSERT INTO `user` VALUES (1,'Wrex Admin','admin@wrex.org','4d186321c1a7f0f354b297e8914ab240',1,'user30-Emp.jpg',1,''),(2,'Wrex user','user@wrex.org','4d186321c1a7f0f354b297e8914ab240',0,'user1-ygN.jpg',1,'');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
