@@ -12,10 +12,11 @@ The main technologies are Primefaces, Spring, and Hibernate (using JPA), with ma
 # What does includes?
 - A backend project for the domain and service layers, with all Database related stuff in it.
 - A frontend project for the view and its managedbeans, security, i18n and jetty for runing.
-- A basic model for user login, register.
+- A basic model for user login, register and update user info.
 
-# Goodies
+# The good
 - Facebook login example and register
+- Forgot password email
 - Cluster markes for Primefaces map
 - Image resize using Clustr library (great open source linrary that uses Java 2D functions for scalign https://github.com/thebuzzmedia/imgscalr)
 - Fileupload ready for PF uploadfile
@@ -35,6 +36,9 @@ The main technologies are Primefaces, Spring, and Hibernate (using JPA), with ma
 
 # The bad
 Wrex doesn't use DTOs or VO for moving data arount. Domain objets are used directly in the managed beans of the view. Why? Development speed, less code. Maybe it's not a great aproach for big enterprise scale projects, but after a a bunch of months developing like this for wiklimb I found it perfect for smaller projects. No cumberstone code and model changes are trivial to get to the view.  
+
+# The Ugly
+No pretty default template or pretty layout to start working. Just a basic template with a Mainlayout an ui:composition. Some examples are still missing like the lightbox or the cluster marker for gmaps.
 
 # The future
 Future updates depend on future functions of wiklimb, but expect trully junt testing using in-memory database in the backend project and REST services por exposing data.
