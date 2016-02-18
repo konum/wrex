@@ -41,7 +41,7 @@ public class i18nBean implements Serializable{
 	
 	public static String getCode(String code){
 		Locale local = FacesContext.getCurrentInstance().getViewRoot().getLocale();
-		if (ResourceBundle.getBundle("i18n.wiklimb",local).containsKey(code))
+		if (ResourceBundle.getBundle("i18n.wrex",local).containsKey(code))
 			return ResourceBundle.getBundle("i18n.wrex",local).getString(code);
 		return code;
 	}
