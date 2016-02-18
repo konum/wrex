@@ -16,6 +16,7 @@ The main technologies are Primefaces, Spring, and Hibernate (using JPA), with ma
 
 # The good
 - Facebook login example and register
+- Jetty ready for fast development
 - Forgot password email
 - Cluster markes for Primefaces map
 - Image resize using Clustr library (great open source linrary that uses Java 2D functions for scalign https://github.com/thebuzzmedia/imgscalr)
