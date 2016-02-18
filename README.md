@@ -17,8 +17,8 @@ The main technologies are Primefaces, Spring, and Hibernate (using JPA), with ma
 - Facebook login example and register
 - Jetty ready for fast development
 - Forgot password email
-- Cluster markes for Primefaces map
-- Image resize using Clustr library (great open source linrary that uses Java 2D functions for scalign https://github.com/thebuzzmedia/imgscalr)
+- Cluster markes for Primefaces map (see http://ggefaell.blogspot.cl/2015/07/marker-clusterer-in-primefaces-gmap.html)
+- Image resize using Scalr library (great open source library that uses Java 2D functions for scaling https://github.com/thebuzzmedia/imgscalr)
 - Fileupload ready for PF uploadfile
 - QueryDSL for writing queries in the DAO layer
 - Liquibase for database changes. 
