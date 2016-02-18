@@ -1,5 +1,6 @@
 package org.wrex.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,6 @@ public class PostServiceImpl implements PostService{
 	}
 	@Override
 	public List<Post> getAllPost() {
-		return postDao.getAll().stream().collect(Collectors.toList());
+		return new ArrayList<Post>(postDao.getAll());
 	}
 }
