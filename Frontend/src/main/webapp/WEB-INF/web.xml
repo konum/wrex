@@ -30,7 +30,9 @@
 	</context-param>
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Development</param-value>
+		<param-value>Production</param-value>
+		<!-- Development stages shows the warning: The form component needs to have a UIForm in its ancestry. Suggestion: enclose the necessary components within <h:form>
+		 	 Its just a warning and you can ignore it.-->
 	</context-param> <!-- Development, UnitTest, SystemTest, Production -->
 
 	<context-param>

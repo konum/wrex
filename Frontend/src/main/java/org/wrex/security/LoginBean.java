@@ -92,18 +92,18 @@ public class LoginBean implements Serializable {
 	 * Do login and reload current page. Useful for popup login dialogs.
 	 */
 	public void login() {
-		doLogin(true);
+		doLogin(true,"");
 	}
 	
 	/**
 	 * Do login and go to default page using location.assign(). It's hardcoded, but you can refactor thism right? 
 	 */
-	public void loginNoReload() {
-		doLogin(false);
+	public void loginRedirect(String url) {
+		doLogin(false,url);
 	}
 	
 	
-	private void doLogin(boolean reload){
+	private void doLogin(boolean reload, String url){
 		if (userName==null)
 			JsfUtils.errorMessageLocale("user_loginError");
 		User user = userService.getByEmail(userName);
@@ -123,7 +123,7 @@ public class LoginBean implements Serializable {
 						RequestContext.getCurrentInstance().execute(
 							"location.reload(true)");
 					else{
-						RequestContext.getCurrentInstance().execute("location.assign('/user/news')");
+						RequestContext.getCurrentInstance().execute("location.assign('"+url+"')");
 					}
 				}
 			} catch (AuthenticationException e) {

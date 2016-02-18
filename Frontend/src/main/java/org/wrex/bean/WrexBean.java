@@ -25,6 +25,15 @@ public abstract class WrexBean {
 	protected UserService userService;
 
 	/**
+	 * Return a localized string
+	 * @param code
+	 * @return
+	 */
+	protected String i18n(String code) {
+		return i18n.get(code);
+	}
+	
+	/**
 	 * Update an id in the request context. For refreshing JSF componentes from the backinb bean.
 	 * @param id
 	 */
@@ -123,10 +132,6 @@ public abstract class WrexBean {
 
 	public void setI18n(i18nBean i18n) {
 		this.i18n = i18n;
-	}
-
-	protected String i18n(String code) {
-		return i18n.get(code);
 	}
 
 	protected User loggedUser() {

@@ -25,7 +25,7 @@
 
 				<p:messages id="loginErrorNonDialog" autoUpdate="false"></p:messages>
 				<p:commandButton value="#{i18n.login}" style="float:right" 
-					actionListener="#{loginBean.loginNoReload()}" update="loginErrorNonDialog"></p:commandButton>
+					actionListener="#{loginBean.loginRedirect('/user/settings')}" update="loginErrorNonDialog"></p:commandButton>
 				<br />
 				<a class="underline" onclick="PF('forgotPasswordDialog').show();">#{i18n.user_forgotPassword}</a>
 				<br />

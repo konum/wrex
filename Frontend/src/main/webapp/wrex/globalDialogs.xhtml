@@ -15,9 +15,8 @@
 		<p:dialog widgetVar="loginDialog" width="400"
 			closable="true" resizable="false" header="#{i18n.login}" modal="true"
 			closeOnEscape="true" showEffect="fade"  rendered="#{not loginBean.logged}">
-			<h:form>
+			
 				<ui:include src="/wrex/user/login.xhtml"></ui:include>
-			</h:form>
 		</p:dialog>
 		<ui:include src="/wrex/user/lostPasswordDialog.xhtml"></ui:include>
 		<p:dialog widgetVar="registerDialog" width="400"

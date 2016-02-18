@@ -8,8 +8,7 @@
 <f:view locale="#{wrexLanguageBean.localeCode}">
 	<ui:composition template="_MainLayout.xhtml">
 		<f:metadata>
-			<f:viewParam name="lang"
-				value="#{wrexLanguageBean.localeCode}" />
+			<f:viewParam name="lang" value="#{wrexLanguageBean.localeCode}" />
 		</f:metadata>
 		<ui:define name="meta">
 			<link rel="alternate" hreflang="es"
@@ -26,9 +25,9 @@
 		<ui:define name="body">
 			<p:ajaxStatus onstart="PF('statusDialog').hide()"
 				onsuccess="PF('statusDialog').hide()" />
-				<section>
-			Hi there and welcome to Wrex!
-			</section>
+				<p:panel>
+				#{i18n.index}
+				</p:panel> 
 		</ui:define>
 	</ui:composition>
 </f:view>

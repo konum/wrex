@@ -4,46 +4,19 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pe="http://primefaces.org/ui/extensions"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:wiklimb="http://java.sun.com/jsf/composite/wiklimb">
-<style>
-@media ( min-device-width : 481px) {
-	header {
-		height: 42px;
-		padding: 8px;
-		position: fixed;
-		z-index: 1000;
-		border-bottom: 0px solid gray;
-	}
-	.headerElement {
-		padding-top: 0.8em;
-	}
-	.menuItem {
-		margin-left: 10px;
-		font-size: 1.6em;
-		color: black;
-	}
-	#mainSearch .fa {
-		font-size: 21px;
-	}
-}
-</style>	
+	xmlns:p="http://primefaces.org/ui">
 <div class="ui-grid ui-grid-responsive mainHeader">
 	<div class="ui-grid-row">
-		<div class="ui-grid-col-2" style="height: 20px; overflow: hidden">
-			<a href="/" style="font-size: 34px"><img src="/images/wrex.jpg" /></a>
+		<div class="ui-grid-col-4">
+				<a href="/" ><img src="/images/header.png" /></a>
 		</div>
-		<div class="ui-grid-col-6">You can put a menu here....</div>
+		<div class="ui-grid-col-2">#{i18n.welcome}</div>
 		<h:panelGroup rendered="#{not loginBean.logged}">
-			<div class="ui-grid-col-2 ">
-				<div class="headerElement">
-					<p:panelGrid styleClass="no-border" columns="2">
-					
-							<p:commandLink onclick="PF('loginDialog').show()" global="false">#{i18n.login}</p:commandLink>
-							<p:commandLink onclick="PF('registerDialog').show()"
-								global="false">#{i18n.register}</p:commandLink>
-					</p:panelGrid>
-				</div>
+			<div class="ui-grid-col-2">
+				<p:panelGrid styleClass="no-border" columns="2">
+					<p:commandLink onclick="PF('loginDialog').show()" global="false">#{i18n.login}</p:commandLink>
+					<p:commandLink onclick="PF('registerDialog').show()" global="false">#{i18n.register}</p:commandLink>
+				</p:panelGrid>
 			</div>
 		</h:panelGroup>
 		<h:panelGroup rendered="#{loginBean.logged}">
@@ -64,16 +37,14 @@
 			</div>
 		</h:panelGroup>
 		<div class="ui-grid-col-1 ">
-			<div class="headerElement">
-				#{i18n.AdminLanguageMgt}
-				<h:form style="width:100px">
-					<p:selectOneMenu value="#{wrexLanguageBean.localeCode}">
-						<p:ajax listener="#{wrexLanguageBean.localeCodeChanged}"
-							oncomplete="window.location.reload()" />
-						<f:selectItems value="#{wrexLanguageBean.languagesInMap}" />
-					</p:selectOneMenu>
-				</h:form>
-			</div>
+			#{i18n.AdminLanguageMgt}
+			<h:form style="width:100px">
+				<p:selectOneMenu value="#{wrexLanguageBean.localeCode}">
+					<p:ajax listener="#{wrexLanguageBean.localeCodeChanged}"
+						oncomplete="window.location.reload()" />
+					<f:selectItems value="#{wrexLanguageBean.languagesInMap}" />
+				</p:selectOneMenu>
+			</h:form>
 		</div>
 	</div>
 </div>

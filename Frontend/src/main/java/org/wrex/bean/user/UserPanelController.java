@@ -1,4 +1,4 @@
-package org.wrex.bean;
+package org.wrex.bean.user;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -8,6 +8,8 @@ import javax.faces.bean.ViewScoped;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.event.FileUploadEvent;
+import org.wrex.bean.ImageService;
+import org.wrex.bean.WrexBean;
 import org.wrex.domain.User;
 import org.wrex.service.UserService;
 import org.wrex.utils.JsfUtils;
@@ -59,7 +61,7 @@ public class UserPanelController extends WrexBean {
 					user.getIdpicture(), 40);
 			userService.update(loaded);
 			loggedUser().setIdpicture(idImage);
-			JsfUtils.succesMessageLocale("user_mustSave");
+			JsfUtils.succesMessageLocale("picSaved");
 	}
 
 	public User getRegister() {

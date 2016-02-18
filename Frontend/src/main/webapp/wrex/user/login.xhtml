@@ -3,38 +3,36 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
+<h:form>
+	<p:remoteCommand name="login" actionListener="#{loginBean.loginFB}"></p:remoteCommand>
+	<p:panelGrid columns="2" styleClass="no-border">
+		<p:outputLabel value="#{i18n.userEmail}" />
+		<p:inputText value="#{loginBean.userName}" required="false"
+			requiredMessage="#{i18n.user_emailRequired}">
 
-<p:remoteCommand name="login" actionListener="#{loginBean.loginFB}"></p:remoteCommand>
+		</p:inputText>
+		<p:outputLabel value="#{i18n.password}" />
+		<p:password value="#{loginBean.password}" required="false"
+			requiredMessage="#{i18n.user_passRequired}"></p:password>
+	</p:panelGrid>
+	<p:messages id="loginError" autoUpdate="false"></p:messages>
+	<p:commandButton value="#{i18n.login}" style="float:right"
+		actionListener="#{loginBean.login()}" update="loginError"></p:commandButton>
+	<br />
+	<p:commandLink type="button" value="#{i18n.user_forgotPassword}"
+		onclick="PF('forgotPasswordDialog').show();PF('loginDialog').hide()"></p:commandLink>
+	<br />
+	<br />
+	<div id="fb-root"></div>
+	<script>
+		//<![CDATA[
+		document
+				.write('<fb:login-button scope="public_profile,email" size="large" onlogin="checkLoginState();">#{i18n.loginFb}</fb:login-button>');
 
-
-<p:panelGrid columns="2" styleClass="no-border">
-	<p:outputLabel value="#{i18n.userEmail}" />
-	<p:inputText value="#{loginBean.userName}" required="false"
-		requiredMessage="#{i18n.user_emailRequired}">
-
-	</p:inputText>
-	<p:outputLabel value="#{i18n.password}" />
-	<p:password value="#{loginBean.password}" required="false"
-		requiredMessage="#{i18n.user_passRequired}"></p:password>
-</p:panelGrid>
-
-<p:messages id="loginError" autoUpdate="false"></p:messages>
-<p:commandButton value="#{i18n.login}" style="float:right"
-	actionListener="#{loginBean.login()}"  update="loginError"></p:commandButton>
-<br />
-<p:commandLink type="button" value="#{i18n.user_forgotPassword}"
-	onclick="PF('forgotPasswordDialog').show();PF('loginDialog').hide()"></p:commandLink>
-<br />
-<br />
-<div id="fb-root"></div>
-<script>
-	//<![CDATA[
-	document
-			.write('<fb:login-button scope="public_profile,email" size="large" onlogin="checkLoginState();">#{i18n.loginFb}</fb:login-button>');
-
-	//]]>
-</script>
-<script type="text/javascript" src="/wiklimb/js/fb.js">
-	
-</script>
+		//]]>
+	</script>
+	<script type="text/javascript" src="/wiklimb/js/fb.js">
+		
+	</script>
+</h:form>
 </html>

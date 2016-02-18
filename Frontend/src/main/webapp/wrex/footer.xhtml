@@ -28,24 +28,17 @@ footer a:hover {
 <hr style="color: white;" />
 <p:panelGrid columns="5" styleClass="no-border" layout="grid"
 	columnClasses="ui-grid-col-1,ui-grid-col-1,ui-grid-col-1,ui-grid-col-1,ui-grid-col-8">
-	<p:link value="#{i18n.about}" href="/about"></p:link>
-	<p:link value="#{i18n.blog}" href="http://ggefaell.blogspot.com/"
+	<p:link value="#{i18n.about}" href="https://github.com/konum/wrex"></p:link>
+	<p:link value="#{i18n.blog}" href="http://ggefaell.blogspot.cl/"
 		target="_blank"></p:link>
-	<p:link href="https://www.facebook.com/wiklimb" target="_blank">
+	<p:link href="https://www.facebook.com/" target="_blank">
 		<img src="/images/fblogo.jpg" height="32px"
 			alt="#{i18n.followUs} Facebook" />
 	</p:link>
-	<a href="http://www.twitter.com/wiklimb" target="_blank"> <img
+	<a href="http://www.twitter.com/" target="_blank"> <img
 		src="/images/twitter_small.png" height="32px"
 		alt="#{i18n.followUs} Twitter" />
 	</a>
 	<h:outputText value="#{i18n.disclaimer}" style="font-size:x-small" />
-	<p:link value="#{extra.tools}" href="/tools"></p:link>
-	<p:link value="#{help.supportUS}" href="/supportUs"></p:link>
-	<p:commandLink
-		onclick="$('#doorbell').css('display','block');$('#doorbell-background').css('display','block')">#{i18n.contact}</p:commandLink>
-	<p:outputPanel style="font-size:xx-small">#{statsController.numLocation} #{i18n.climb_location} #{statsController.numRoute} #{i18n.routes} #{statsController.numUser} #{i18n.users}
-	</p:outputPanel>
-	<h:outputText value="#{i18n.copyright}" style="font-size:xx-small" />
 </p:panelGrid>
 </html>
