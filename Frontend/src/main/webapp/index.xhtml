@@ -25,9 +25,16 @@
 		<ui:define name="body">
 			<p:ajaxStatus onstart="PF('statusDialog').hide()"
 				onsuccess="PF('statusDialog').hide()" />
-				<p:panel>
+			<p:panel>
 				#{i18n.index}
-				</p:panel> 
+				</p:panel>
+			<br/><br/>
+			<p:panel>
+			 	<f:facet name="header">Wrex quote</f:facet>
+					Wrex: #{i18n.wrex1}<br/>
+					Shepard: #{i18n.wrex2}<br/>
+					Wrex: #{i18n.wrex3}<br/>
+				</p:panel>
 		</ui:define>
 	</ui:composition>
 </f:view>

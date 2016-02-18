@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:wiklimb="http://java.sun.com/jsf/composite/wiklimb">
+<ui:composition template="/_MainLayout.xhtml">
+	<f:metadata>
+		<f:viewParam name="id" value="#{activateUserController.id}" />
+		<f:viewParam name="key" value="#{activateUserController.key}" />
+	</f:metadata>
+	<ui:define name="title">
+		<h:outputText value="#{i18n.user_registerMailSubject}" />
+	</ui:define>
+	<ui:define name="body">
+		<!-- Activation is not implemente but you can use this a base if you like -->
+		<h:form id="form">
+		<p:messages autoUpdate="true"> </p:messages>
+		<p:remoteCommand actionListener="#{activateUserController.check}" name="check"></p:remoteCommand>
+		</h:form>
+		<script>
+		$(window)
+		.load(
+				function() {
+					check();
+				});
+		</script>
+	</ui:define>
+</ui:composition>
+</html>
