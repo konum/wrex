@@ -43,4 +43,6 @@ No pretty default template or pretty layout to start working. Just a basic templ
 # The future
 Future updates depend on future functions of wiklimb, but expect trully junt testing using in-memory database in the backend project and REST services por exposing data.
 
-Image of wrex by: http://gelvuun.deviantart.com/art/Urdnot-Wrex-291676543#
+Images of wrex by: 
+http://gelvuun.deviantart.com/art/Urdnot-Wrex-291676543#
+http://dp-films.deviantart.com/art/Urndot-Wrex-the-Krogan-Warlord-325506057
