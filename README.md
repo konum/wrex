@@ -23,6 +23,7 @@ The main technologies are Primefaces, Spring, and Hibernate (using JPA), with ma
 - QueryDSL for writing queries in the DAO layer
 - Liquibase for database changes. 
 - Use of Maven SQL plugin for cleaning and loading the local database.
+- Junit with inmemory H2 database ready to run.
 - Integration Junits to the local database.
 - Password encryption
 - Async mail sending
@@ -42,6 +43,11 @@ No pretty default template or pretty layout to start working. Just a basic templ
 
 # The future
 Future updates depend on future functions of wiklimb, but expect trully junt testing using in-memory database in the backend project and REST services por exposing data.
+
+# Updates
+03/03/2016
+Junit with inmemory H2 database ready to run.
+
 
 Images of wrex by: 
 http://gelvuun.deviantart.com/art/Urdnot-Wrex-291676543#
