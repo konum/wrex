@@ -24,7 +24,7 @@ public class UserServiceTest {
 
 	@Test
 	public void getUser() {
-		Assert.assertEquals("konum",service.load(1).getName());
+		Assert.assertEquals("Wrex Admin",service.load(1).getName());
 	}
 
 	@Test

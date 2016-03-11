@@ -1,5 +1,7 @@
 package org.wrex.dao.integration;
 
+
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +15,12 @@ import org.wrex.dao.PostDao;
 public class PostDaoTest {
 
 	@Autowired
-	@Qualifier("gradeDao")
-	PostDao gradeDao;
+	@Qualifier("postDao")
+	PostDao postDao;
 
 	@Test
-	public void getUserAllWithOrder() {
-		
+	public void getAlLTest() {
+		Assert.assertEquals(2, postDao.getAll().size());
 	}
 	
 }

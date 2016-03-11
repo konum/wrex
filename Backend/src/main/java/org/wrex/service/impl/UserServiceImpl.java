@@ -11,7 +11,7 @@ import org.wrex.dao.UserDao;
 import org.wrex.domain.User;
 import org.wrex.service.UserService;
 
-@Service
+@Service("userService")
 @Transactional
 public class UserServiceImpl implements UserService{
 
