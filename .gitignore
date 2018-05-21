@@ -1,22 +1,23 @@
-/target/
-/.classpath
-.metadata
-bin/
-tmp/
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
-.settings/
-.loadpath
-.recommenders
-
+**/target/
+**/build/
+**/.classpath
+**/.metadata
+**/.project
+**/bin/
+**/tmp/
+**/*.tmp
+**/*.bak
+**/*.swp
+**/*~.nib
+**/local.properties
+**/.settings/
+**/.loadpath
+**/.recommenders
 # External tool builders
-.externalToolBuilders/
-
+**/.externalToolBuilders/
+**/.bash_history
 # Locally stored "Eclipse launch configurations"
-*.launch
+**/*.launch
 
 # PyDev specific (Python IDE for Eclipse)
 *.pydevproject
@@ -31,24 +32,24 @@ local.properties
 .factorypath
 
 # PDT-specific (PHP Development Tools)
-.buildpath
+**/.buildpath
 
 # sbteclipse plugin
-.target
+**/.target
 
 # Tern plugin
-.tern-project
+**/.tern-project
 
 # TeXlipse plugin
-.texlipse
+**/.texlipse
 
 # STS (Spring Tool Suite)
-.springBeans
+**/.springBeans
 
 # Code Recommenders
-.recommenders/
+**/.recommenders/
 
 # Scala IDE specific (Scala & Java development for Eclipse)
-.cache-main
-.scala_dependencies
-.worksheet
+**/.cache-main
+**/.scala_dependencies
+**/.worksheet
