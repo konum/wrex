@@ -10,6 +10,16 @@ The main technologies are Primefaces, Spring and Spring Data , with maven to do 
 
 ![alt tag](https://github.com/konum/wrex/blob/master/screenshot.png?raw=true)
 
+# Stack
+Spring 5
+Primefaces 6.2 + PF Extensions
+Spring Data + Hibernate 5
+Spring Security
+Junit
+H2
+MySQL 8
+Liquibase
+MapStruct
 
 # What does includes?
 - A backend project for the data access and service layers, with all Database related stuff in it.
@@ -24,7 +34,6 @@ The main technologies are Primefaces, Spring and Spring Data , with maven to do 
 - Cluster markes for Primefaces map (see http://ggefaell.blogspot.cl/2015/07/marker-clusterer-in-primefaces-gmap.html)
 - Image resize using Scalr library (great open source library that uses Java 2D functions for scaling https://github.com/thebuzzmedia/imgscalr)
 - Fileupload ready for PF uploadfile
-- QueryDSL for writing queries in the DAO layer
 - Liquibase for database changes. 
 - Use of Maven SQL plugin for cleaning and loading the local database.
 - Junit with inmemory H2 database ready to run.
@@ -49,6 +58,9 @@ No pretty default template or pretty layout to start working. Just a basic templ
 TBD
 
 # Updates
+21/05/2018
+Changed dozer with matpstruct for performance upgrade. Added apache commons-collections4 to backend.
+
 20/05/2018
 Begin to work again on wrex. Major FW update, new api layer and DTOs are now used to isolate layers. Added Dozer to map dtos and entities.
 
