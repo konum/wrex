@@ -1,12 +1,12 @@
 package org.wrex.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.wrex.api.domain.UserDTO;
@@ -21,6 +21,8 @@ public class UserServiceImpl implements UserService{
 
 	@Autowired
 	UserRepository userDao;
+	
+	static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
 	
 	private Mapper mapper = new DozerBeanMapper();
 	
@@ -48,6 +50,7 @@ public class UserServiceImpl implements UserService{
 	 * @return
 	 */
 	public UserDTO getByEmail(String email) {
+		LOG.info("getByEmail "  + email);
 		User user = userDao.findOneByEmail(email);
 		if (user != null)
 			return mapper.map(user, UserDTO.class);

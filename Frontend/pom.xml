@@ -2,24 +2,26 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.wrex</groupId>
-	<artifactId>wrexFrontend</artifactId>
+	<artifactId>wrex-frontend</artifactId>
 	<packaging>war</packaging>
-	<version>1.0</version>
-	<name>Wrex JSF front end</name>
-	<url>http://maven.apache.org</url>
+	<name>Wrex JSF Front end</name>
 
+	<parent>
+		<groupId>org.wrex</groupId>
+		<artifactId>wrex-parent</artifactId>
+		<version>1.0</version>
+	</parent>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.wrex</groupId>
-			<artifactId>wrexApi</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>wrex-api</artifactId>
+			<version>1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.wrex</groupId>
-			<artifactId>wrexBackend</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>wrex-backend</artifactId>
+			<version>1.0</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -50,18 +52,10 @@
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
-			<version>1.4</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.wrex</groupId>
-			<artifactId>wrexBackend</artifactId>
-			<version>1.0</version>
 		</dependency>
 		<!-- spring -->
 		<dependency>
@@ -77,12 +71,12 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>4.0.1.RELEASE</version>
+			<version>${spring.security.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>4.0.1.RELEASE</version>
+			<version>${spring.security.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.validation</groupId>
@@ -240,14 +234,13 @@
 		</repository>
 	</repositories>
 	<properties>
-		<spring.version>5.0.6.RELEASE</spring.version>
 		<cglib.version>2.2.2</cglib.version>
-		<junit.version>4.12</junit.version>
+		<itext.version>4.2.1</itext.version>
+		<poi.version>3.13</poi.version>
 		<primefaces.version>6.2</primefaces.version>
 		<primefaces.theme.version>1.0.10</primefaces.theme.version>
 		<primefaces.extension.version>6.2.3</primefaces.extension.version>
-		<poi.version>3.13</poi.version>
-		<itext.version>4.2.1</itext.version>
-		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
+		<spring.version>5.0.6.RELEASE</spring.version>
+		<spring.security.version>4.0.1.RELEASE</spring.security.version>
 	</properties>
 </project>
