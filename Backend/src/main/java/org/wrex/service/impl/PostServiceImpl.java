@@ -2,15 +2,13 @@ package org.wrex.service.impl;
 
 import java.util.List;
 
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
+import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.wrex.api.domain.PostDTO;
 import org.wrex.dao.PostRepository;
-import org.wrex.entities.Post;
-import org.wrex.generic.ListMapper;
+import org.wrex.mappers.PostMapper;
 import org.wrex.service.PostService;
 
 @Service("postService")
@@ -21,17 +19,15 @@ public class PostServiceImpl implements PostService{
 	private PostRepository postDao;
 	
 
-	private Mapper mapper = new DozerBeanMapper();
-	
 	/**
 	 * Creates a new Warning
-	 * @param warn
+	 * @param post
 	 */
-	public void save(PostDTO warn) {
-		postDao.save(mapper.map(warn, Post.class));
+	public void save(PostDTO post) {
+		postDao.save(PostMapper.INSTANCE.dtoToPost(post));
 	}
 	@Override
 	public List<PostDTO> getAllPost() {
-		return ListMapper.mapList(mapper, postDao.findAll(), PostDTO.class);
+		return PostMapper.INSTANCE.listToPostDTO(IterableUtils.toList(postDao.findAll()));
 	}
 }

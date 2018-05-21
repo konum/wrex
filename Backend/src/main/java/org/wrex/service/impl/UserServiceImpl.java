@@ -2,8 +2,7 @@ package org.wrex.service.impl;
 
 import java.util.List;
 
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
+import org.apache.commons.collections4.IterableUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.wrex.api.domain.UserDTO;
 import org.wrex.dao.UserRepository;
 import org.wrex.entities.User;
-import org.wrex.generic.ListMapper;
+import org.wrex.mappers.UserMapper;
 import org.wrex.service.UserService;
 
 @Service("userService")
@@ -24,8 +23,6 @@ public class UserServiceImpl implements UserService{
 	
 	static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
 	
-	private Mapper mapper = new DozerBeanMapper();
-	
 	/**
 	 * Creates a new user. UserDTO.id must be null
 	 * 
@@ -33,7 +30,7 @@ public class UserServiceImpl implements UserService{
 	 * 
 	 */
 	public void save(UserDTO user) {
-		userDao.save(mapper.map(user, User.class));
+		userDao.save(UserMapper.INSTANCE.userDtoToUser(user));
 	}
 
 	/**
@@ -53,7 +50,7 @@ public class UserServiceImpl implements UserService{
 		LOG.info("getByEmail "  + email);
 		User user = userDao.findOneByEmail(email);
 		if (user != null)
-			return mapper.map(user, UserDTO.class);
+			return UserMapper.INSTANCE.userToUserDTO(user);
 		return null;
 	}
 
@@ -66,18 +63,18 @@ public class UserServiceImpl implements UserService{
 	public UserDTO load(Integer iduser) {
 		User user = userDao.findById(iduser).get();
 		if (user != null)
-			return mapper.map(user, UserDTO.class);
+			return UserMapper.INSTANCE.userToUserDTO(user);
 		return null;
 	}
 
 	@Override
 	public List<UserDTO> getAll() {
-		return ListMapper.mapList(mapper, userDao.findAll(), UserDTO.class); 
+		return UserMapper.INSTANCE.listToDTOList(IterableUtils.toList(userDao.findAll())); 
 	}
 
 	@Override
 	public UserDTO getByIdFb(String id) {
-		return mapper.map(userDao.findOneByIdUserFB(id), UserDTO.class);
+		return UserMapper.INSTANCE.userToUserDTO(userDao.findOneByIdUserFB(id));
 	}
 
 }
