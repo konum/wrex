@@ -6,10 +6,11 @@ For those that haven't played the great Mass Effect games Wrex won't mean a thin
 
 One of the more pain in the ass parts in any project, is to get the environment to work, getting all dependecies and stuff working together. So I have decided to get all the stuff together that I learnt building wiklimb.com in one open archetype for everyone to use.
 
-The main technologies are Primefaces, Spring, and Hibernate (using JPA), with maven to do all the building.  All using latest stable versions.
+The main technologies are Primefaces, Spring and Spring Data , with maven to do all the building.  
 
 # What does includes?
-- A backend project for the domain and service layers, with all Database related stuff in it.
+- A backend project for the data access and service layers, with all Database related stuff in it.
+- An api layer with interfaces and DTOS.
 - A frontend project for the view and its managedbeans, security, i18n and jetty for runing.
 - A basic model for user login, register and update user info.
 
@@ -36,15 +37,18 @@ The main technologies are Primefaces, Spring, and Hibernate (using JPA), with ma
 
 
 # The bad
-Wrex doesn't use DTOs or VO for moving data arount. Domain objets are used directly in the managed beans of the view. Why? Development speed, less code. Maybe it's not a great aproach for big enterprise scale projects, but after a a bunch of months developing like this for wiklimb I found it perfect for smaller projects. No cumberstone code and model changes are trivial to get to the view.  
+Not really a production ready archetype. More like a fast prototype and to play around with java fw. Poor documentation right now on the goodies and how to make them work. 
 
 # The Ugly
 No pretty default template or pretty layout to start working. Just a basic template with a Mainlayout an ui:composition. Some examples are still missing like the lightbox or the cluster marker for gmaps.
 
 # The future
-Future updates depend on future functions of wiklimb, but expect trully junt testing using in-memory database in the backend project and REST services por exposing data.
+TBD
 
 # Updates
+20/05/2018
+Begin to work again on wrex. Major FW update, new api layer and DTOs are now used to isolate layers. Added Dozer to map dtos and entities.
+
 03/03/2016
 Junit with inmemory H2 database ready to run.
 
