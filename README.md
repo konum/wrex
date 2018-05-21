@@ -48,6 +48,7 @@ MapStruct
 - Nice js lightbox library included
 
 
+
 # The bad
 Not really a production ready archetype. More like a fast prototype and to play around with java fw. Poor documentation right now on the goodies and how to make them work. 
 
