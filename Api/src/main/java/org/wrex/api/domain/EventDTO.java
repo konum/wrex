@@ -1,40 +1,21 @@
-package org.wrex.domain;
+package org.wrex.api.domain;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import org.wrex.generic.AbstractDomainObject;
-
 /**
- * The persistent class for the event database table. This class is created using liquibase. see  src/main/resoures/db-changelog.xml
+ * The domain class for the event. 
  * 
  */
-@Entity
-public class Event extends AbstractDomainObject implements Serializable {
+public class EventDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	
 	private Integer idEvent;
-
 	private Date eventDate;
-
-	@ManyToOne(fetch = FetchType.LAZY, optional = true)
-	@JoinColumn(name = "idUser", referencedColumnName = "idUser", nullable = true, unique = true, insertable = true, updatable = false)
-	private User user;
-
+	private UserDTO user;
 	private String text;
 
-
-	public Event() {
+	public EventDTO() {
 	}
 
 	@Override
@@ -52,7 +33,7 @@ public class Event extends AbstractDomainObject implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Event other = (Event) obj;
+		EventDTO other = (EventDTO) obj;
 		if (idEvent == null) {
 			if (other.idEvent != null)
 				return false;
@@ -69,7 +50,7 @@ public class Event extends AbstractDomainObject implements Serializable {
 		return eventDate;
 	}
 
-	public User getUser() {
+	public UserDTO getUser() {
 		return user;
 	}
 
@@ -85,7 +66,7 @@ public class Event extends AbstractDomainObject implements Serializable {
 		this.eventDate = eventDate;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserDTO user) {
 		this.user = user;
 	}
 
@@ -94,6 +75,4 @@ public class Event extends AbstractDomainObject implements Serializable {
 		this.text = text;
 	}
 
-
-	
 }

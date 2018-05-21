@@ -2,7 +2,7 @@ package org.wrex.service;
 
 import java.util.List;
 
-import org.wrex.domain.Post;
+import org.wrex.api.domain.PostDTO;
 
 
 /**
@@ -21,8 +21,8 @@ public interface PostService{
 	 * Creates a new Warning
 	 * @param warn
 	 */
-	void create(Post warn);
+	void save(PostDTO warn);
 	
-	List<Post> getAllPost();
+	List<PostDTO> getAllPost();
 
 }

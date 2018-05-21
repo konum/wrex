@@ -8,7 +8,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 import org.springframework.stereotype.Component;
-import org.wrex.domain.User;
+import org.wrex.entities.User;
 /**
  *
  * <p>Title: UserConverter</p>

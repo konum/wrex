@@ -8,7 +8,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 import org.springframework.stereotype.Component;
-import org.wrex.domain.Post;
+import org.wrex.entities.Post;
 /**
  *
  * <p>Title: PostConverter</p>

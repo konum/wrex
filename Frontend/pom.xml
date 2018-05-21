@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.wrex</groupId>
@@ -11,9 +12,30 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.wrex</groupId>
+			<artifactId>wrexApi</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.wrex</groupId>
+			<artifactId>wrexBackend</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.ocpsoft.rewrite</groupId>
@@ -172,10 +194,10 @@
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-<!-- 			JDK 1.8 -->
+				<!-- JDK 1.8 -->
 				<version>9.3.7.v20160115</version>
-<!-- 			JDK 1.7 version -->
-<!-- 			<version>9.2.10.v20150310</version> -->
+				<!-- JDK 1.7 version -->
+				<!-- <version>9.2.10.v20150310</version> -->
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
 				</configuration>
@@ -206,7 +228,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-		
 		<finalName>wrex</finalName>
 	</build>
 
@@ -219,13 +240,13 @@
 		</repository>
 	</repositories>
 	<properties>
-		<spring.version>4.2.4.RELEASE</spring.version>
+		<spring.version>5.0.6.RELEASE</spring.version>
 		<cglib.version>2.2.2</cglib.version>
-		<junit.version>4.10</junit.version>
-		<primefaces.version>5.3</primefaces.version>
+		<junit.version>4.12</junit.version>
+		<primefaces.version>6.2</primefaces.version>
 		<primefaces.theme.version>1.0.10</primefaces.theme.version>
-		<primefaces.extension.version>4.0.0</primefaces.extension.version>
-		<poi.version>3.10-FINAL</poi.version>
+		<primefaces.extension.version>6.2.3</primefaces.extension.version>
+		<poi.version>3.13</poi.version>
 		<itext.version>4.2.1</itext.version>
 		<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
 	</properties>

@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.wrex.api.domain.UserDTO;
 import org.wrex.service.UserService;
 
 @Service
@@ -21,12 +22,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserService userService;   
 
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-    	org.wrex.domain.User domainUser = userService.getByEmail(login);
+    	UserDTO domainUser = userService.getByEmail(login);
         boolean enabled = true;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
-        if (domainUser.getStatus() == org.wrex.domain.User.INACTIVE)
+        if (domainUser.getStatus() == org.wrex.entities.User.INACTIVE)
         	accountNonLocked = false;
         return new User(
             domainUser.getEmail(),

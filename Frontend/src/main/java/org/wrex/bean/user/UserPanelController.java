@@ -8,9 +8,10 @@ import javax.faces.bean.ViewScoped;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.event.FileUploadEvent;
+import org.wrex.api.domain.UserDTO;
 import org.wrex.bean.ImageService;
 import org.wrex.bean.WrexBean;
-import org.wrex.domain.User;
+import org.wrex.entities.User;
 import org.wrex.service.UserService;
 import org.wrex.utils.JsfUtils;
 import org.wrex.utils.PasswordUtil;
@@ -22,7 +23,7 @@ public class UserPanelController extends WrexBean {
 	@ManagedProperty("#{imageService}")
 	ImageService imageService;
 
-	private User user;
+	private UserDTO user;
 	private String password;
 	private String repeteadPassword;
 
@@ -43,7 +44,7 @@ public class UserPanelController extends WrexBean {
 		if (valid) {
 			if (user.getPassword() != null && !password.isEmpty())
 				user.setPassword(PasswordUtil.encrypPassword(password));
-			userService.update(user);
+			userService.save(user);
 			JsfUtils.succesMessageLocale("entityUpdated");
 		}
 	}
@@ -55,20 +56,20 @@ public class UserPanelController extends WrexBean {
 			String idImage = "user" + user.getIduser() + "-"
 					+ RandomStringUtils.randomAlphanumeric(3) + "."
 					+ extension;
-			User loaded = userService.getByEmail(user.getEmail());
+			UserDTO loaded = userService.getByEmail(user.getEmail());
 			loaded.setIdpicture(idImage);
 			imageService.creatOrUpdateImage(event.getFile(), idImage,
 					user.getIdpicture(), 40);
-			userService.update(loaded);
+			userService.save(loaded);
 			loggedUser().setIdpicture(idImage);
 			JsfUtils.succesMessageLocale("picSaved");
 	}
 
-	public User getRegister() {
+	public UserDTO getRegister() {
 		return user;
 	}
 
-	public void setRegister(User register) {
+	public void setRegister(UserDTO register) {
 		this.user = register;
 	}
 
@@ -89,11 +90,11 @@ public class UserPanelController extends WrexBean {
 	}
 
 
-	public User getUser() {
+	public UserDTO getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserDTO user) {
 		this.user = user;
 	}
 

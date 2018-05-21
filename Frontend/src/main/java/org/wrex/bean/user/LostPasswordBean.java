@@ -10,8 +10,8 @@ import javax.faces.bean.RequestScoped;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.primefaces.context.RequestContext;
+import org.wrex.api.domain.UserDTO;
 import org.wrex.bean.WrexBean;
-import org.wrex.domain.User;
 import org.wrex.i18n.i18nBean;
 import org.wrex.service.UserService;
 import org.wrex.utils.JsfUtils;
@@ -26,13 +26,13 @@ public class LostPasswordBean extends WrexBean{
 	private String password;
 	
 	public void forgot(){
-        User user = userService.getByEmail(password);
+        UserDTO user = userService.getByEmail(password);
         if (user == null)
 			JsfUtils.errorMessageLocale("user_noUserEmail");
         else{
         	String newPassword = RandomStringUtils.randomAlphanumeric(7);
         	user.setPassword(PasswordUtil.encrypPassword(newPassword));
-        	userService.update(user);
+        	userService.save(user);
         	List<String> mail = new ArrayList<String>();
         	mail.add(i18n("user_newPasswordText"));
         	mail.add(newPassword);

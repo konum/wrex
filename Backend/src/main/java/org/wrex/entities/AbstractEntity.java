@@ -1,4 +1,4 @@
-package org.wrex.generic;
+package org.wrex.entities;
 
 import java.io.Serializable;
 
@@ -8,6 +8,6 @@ import java.io.Serializable;
  * @author ggefaell
  *
  */
-public abstract class AbstractDomainObject implements Serializable {
+public abstract class AbstractEntity implements Serializable {
 
 }

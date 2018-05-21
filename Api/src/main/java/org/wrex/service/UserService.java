@@ -2,12 +2,12 @@ package org.wrex.service;
 
 import java.util.List;
 
-import org.wrex.domain.User;
+import org.wrex.api.domain.UserDTO;
 
 /**
  *
  * <p>
- * Title: UserService
+ * Title: UserDTOService
  * </p>
  *
  * <p>
@@ -19,32 +19,35 @@ import org.wrex.domain.User;
 public interface UserService {
 
 	/**
-	 * Creates a new user. User.id must be null
+	 * Creates a new user. UserDTO.id must be null
 	 * 
 	 * @param user
 	 * 
 	 */
-	void create(User user);
+	void save(UserDTO user);
 
 	/**
 	 * Return the number of active users.
 	 * @return
 	 */
-	int countUsers();
+	long countUsers();
 	
-	List<User> getAll();
+	List<UserDTO> getAll();
 
-	User getByEmail(String email); 
+	UserDTO getByEmail(String email); 
 	
-	User getByIdFb(String idFb);
-
-	void update(User user);
-
 	/**
 	 * Return an user with all its fields initialized.
 	 * @param iduser
 	 * @return
 	 */
-	User load(Integer iduser);
+	UserDTO load(Integer iduser);
+
+	/**
+	 * Returns user by his facebook id
+	 * @param id
+	 * @return Null if not found
+	 */
+	UserDTO getByIdFb(String id);
 	
 }

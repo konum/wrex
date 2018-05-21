@@ -1,7 +1,8 @@
 package org.wrex.dao;
 
 
-import org.wrex.domain.User;
+import org.springframework.data.repository.CrudRepository;
+import org.wrex.entities.User;
 
 
 /**
@@ -13,11 +14,9 @@ import org.wrex.domain.User;
  * deleting and searching user objects</p>
  *
  */
-public interface UserDao extends GenericDao<User,Integer>{
+public interface UserRepository extends CrudRepository<User,Integer>{
 
-	int countAll();
+	User findOneByEmail(String email);
 
-	User getByEmail(String email);
-
-	User getByIdFb(String idFb);
+	User findOneByIdUserFB(String idFb);
 }

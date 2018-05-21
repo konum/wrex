@@ -15,8 +15,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.wrex.api.domain.UserDTO;
 import org.wrex.bean.ImageService;
-import org.wrex.domain.User;
+import org.wrex.entities.User;
 import org.wrex.service.UserService;
 import org.wrex.utils.JsfUtils;
 import org.wrex.utils.PasswordUtil;
@@ -40,7 +41,7 @@ public class LoginBean implements Serializable {
 	@ManagedProperty("#{imageService}")
 	private ImageService imageService;
 
-	private User user;
+	private UserDTO user;
 
 	private String userName = null;
 	private String password = null;
@@ -55,10 +56,10 @@ public class LoginBean implements Serializable {
 		String name = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("name");
 		String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
 		String mail = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("mail");
-		User user =userExist(id); 
+		UserDTO user =userExist(id); 
 		if (user==null){
 			String idPicture = "user"+id.substring(0,2)+RandomStringUtils.randomAlphanumeric(3)+".jpg";
-			user = new User();
+			user = new UserDTO();
 			user.setName(name);
 			if (mail == null || mail.isEmpty() || mail.equals("undefined"))
 				user.setEmail(name);
@@ -69,7 +70,7 @@ public class LoginBean implements Serializable {
 			user.setStatus(1);
 			user.setIdpicture(idPicture);
 			user.setIdUserFB(id);
-			userService.create(user);
+			userService.save(user);
 			imageService.storeImage(idPicture,url);
 		}
 		this.userName = user.getEmail();
@@ -77,10 +78,10 @@ public class LoginBean implements Serializable {
 		login();
 	}
 	
-	private User userExist(String id) {
-		User param = new User();
+	private UserDTO userExist(String id) {
+		UserDTO param = new UserDTO();
 		param.setIdUserFB(id);;
-		User user = userService.getByIdFb(id);
+		UserDTO user = userService.getByIdFb(id);
 		if (user !=null){
 			JsfUtils.succesMessageLocale("user_emailExist");
 			return user;
@@ -106,7 +107,7 @@ public class LoginBean implements Serializable {
 	private void doLogin(boolean reload, String url){
 		if (userName==null)
 			JsfUtils.errorMessageLocale("user_loginError");
-		User user = userService.getByEmail(userName);
+		UserDTO user = userService.getByEmail(userName);
 		if (user == null)
 			JsfUtils.errorMessageLocale("user_loginError");
 		else {
@@ -185,11 +186,11 @@ public class LoginBean implements Serializable {
 		this.userService = userService;
 	}
 
-	public User getUser() {
+	public UserDTO getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserDTO user) {
 		this.user = user;
 	}
 

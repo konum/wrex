@@ -11,13 +11,13 @@
 	</ui:define>
 	<ui:define name="body">
 		<div style="height: 30px;" />
-		<p:growl id="growl" autoUpdate="false"></p:growl>
+		<p:growl id="growl"></p:growl>
 		<h:form id="form" rendered="#{loginBean.logged}"
 			enctype="multipart/form-data">
 			<p:outputLabel value="#{i18n.user_panel}" styleClass="section-header" />
 			<p:panelGrid columns="2" styleClass="no-border">
 				<h:panelGroup id="userPic">
-					<img src="/wrexImages/#{userPanelController.user.idpicture}"
+					<img src="#{request.contextPath}/wrexImages/#{userPanelController.user.idpicture}"
 						height="150" />
 				</h:panelGroup>
 				<p:panelGrid columns="2" styleClass="no-border">
@@ -32,7 +32,7 @@
 					<p:outputLabel value="#{i18n.user_changePhoto}" />
 					<p:fileUpload id="imageUpload" uploadLabel="#{i18n.upload}"
 						cancelLabel="#{i18n.cancel}" label="#{i18n.search}"
-						fileLimitMessage="#{i18n.fileToBig}"
+						fileLimitMessage="#{i18n.fileToBig}" mode="advanced"
 						invalidFileMessage="#{i18n.invalidFile}"
 						invalidSizeMessage="#{i18n.fileToBig}" auto="true"
 						fileUploadListener="#{userPanelController.handleFileUpload}"
@@ -47,7 +47,7 @@
 					update="form, :form:userMessages"
 					actionListener="#{userPanelController.save}"></p:commandButton>
 			</p:panelGrid>
-			<p:messages id="userMessages" autoUpdate="false">
+			<p:messages id="userMessages" >
 			</p:messages>
 		</h:form>
 	</ui:define>

@@ -8,7 +8,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.context.RequestContext;
-import org.wrex.domain.User;
+import org.wrex.api.domain.UserDTO;
 import org.wrex.i18n.i18nBean;
 import org.wrex.security.LoginBean;
 import org.wrex.service.UserService;
@@ -134,7 +134,7 @@ public abstract class WrexBean {
 		this.i18n = i18n;
 	}
 
-	protected User loggedUser() {
+	protected UserDTO loggedUser() {
 		return login.getUser();
 	}
 

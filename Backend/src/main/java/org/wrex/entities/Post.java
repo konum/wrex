@@ -1,4 +1,4 @@
-package org.wrex.domain;
+package org.wrex.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +12,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.wrex.generic.AbstractDomainObject;
-
 /**
  *
  * <p>Title: Post</p>
@@ -23,7 +21,7 @@ import org.wrex.generic.AbstractDomainObject;
  */
 @Entity (name="Post")
 @Table (name="Post")
-public class Post extends AbstractDomainObject {
+public class Post extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
     @Id @Column(name="idPost" ) 

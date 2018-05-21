@@ -1,7 +1,8 @@
 package org.wrex.dao;
 
 
-import org.wrex.domain.Post;
+import org.springframework.data.repository.CrudRepository;
+import org.wrex.entities.Post;
 
 
 /**
@@ -13,7 +14,7 @@ import org.wrex.domain.Post;
  * deleting and searching post objects</p>
  *
  */
-public interface PostDao extends GenericDao<Post,Integer>{
+public interface PostRepository extends CrudRepository<Post,Integer>{
 
 
 }

@@ -1,4 +1,4 @@
-package org.wrex.domain;
+package org.wrex.entities;
 
 import java.util.List;
 
@@ -15,15 +15,14 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.wrex.generic.AbstractDomainObject;
 
 @Entity (name="User")
 @Table (name="User")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class User extends AbstractDomainObject {
+public class User extends AbstractEntity {
 	
-	public static Integer ACTIVE = 1;
-	public static Integer INACTIVE = 0;
+	public static final Integer ACTIVE = 1;
+	public static final Integer INACTIVE = 0;
 	
     private static final long serialVersionUID = 1L;
 	public static final Integer __DEFAULT_ROLE = 0;
@@ -52,7 +51,7 @@ public class User extends AbstractDomainObject {
     
     
     private String idUserFB;
-
+    
 
     @OneToMany(mappedBy="user",fetch=FetchType.LAZY,cascade=CascadeType.MERGE)
     @OrderBy("date ASC")
@@ -155,12 +154,11 @@ public class User extends AbstractDomainObject {
     public void preUpdate_ () {
         if (role==null) role=__DEFAULT_ROLE;
     }
-
 	public String getIdUserFB() {
 		return idUserFB;
 	}
-
 	public void setIdUserFB(String idUserFB) {
 		this.idUserFB = idUserFB;
 	}
+
 }

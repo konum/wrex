@@ -6,16 +6,16 @@
 	<persistence-unit name="wrexPersistence"
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>org.wrex.domain.User</class>
-		<class>org.wrex.domain.Post</class>
-		<class>org.wrex.domain.Event</class>
+		<class>org.wrex.entities.User</class>
+		<class>org.wrex.entities.Post</class>
+		<class>org.wrex.entities.Event</class>
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
-			<property name="hibernate.connection.driver_class" value="org.gjt.mm.mysql.Driver" />
+			<property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver" />
 			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/wrex" />
 			<property name="hibernate.connection.username" value="root" />
-			<property name="hibernate.connection.password" value="" />
+			<property name="hibernate.connection.password" value="hola" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			<property name="hibernate.cache.region.factory_class"
 				value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory" />

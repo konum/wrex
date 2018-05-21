@@ -8,7 +8,7 @@
 <div class="ui-grid ui-grid-responsive mainHeader">
 	<div class="ui-grid-row">
 		<div class="ui-grid-col-4">
-				<a href="/" ><img src="/images/header.png" /></a>
+				<a href="/" ><img src="#{request.contextPath}/images/header.png" /></a>
 		</div>
 		<div class="ui-grid-col-2">#{i18n.welcome}</div>
 		<h:panelGroup rendered="#{not loginBean.logged}">
@@ -23,7 +23,7 @@
 			<div class="ui-grid-col-2 ">
 				<p:panelGrid styleClass="no-border" columns="3">
 					<h:panelGroup id="userPc">
-						<img src="/wrexImages/#{loginBean.user.idpicture}" width="40" />
+						<img src="#{request.contextPath}/wrexImages/#{loginBean.user.idpicture}" width="40" />
 					</h:panelGroup>
 					<p:commandButton value="#{loginBean.user.name}" id="userLink"
 						icon="fa fa-chevron-down " style="white-space: nowrap;"

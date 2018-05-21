@@ -3,12 +3,16 @@ package org.wrex.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.wrex.dao.UserDao;
-import org.wrex.domain.User;
+import org.wrex.api.domain.UserDTO;
+import org.wrex.dao.UserRepository;
+import org.wrex.entities.User;
+import org.wrex.generic.ListMapper;
 import org.wrex.service.UserService;
 
 @Service("userService")
@@ -16,42 +20,38 @@ import org.wrex.service.UserService;
 public class UserServiceImpl implements UserService{
 
 	@Autowired
-	@Qualifier("userDao")
-	UserDao userDao;
+	UserRepository userDao;
+	
+	private Mapper mapper = new DozerBeanMapper();
 	
 	/**
-	 * Creates a new user. User.id must be null
+	 * Creates a new user. UserDTO.id must be null
 	 * 
 	 * @param user
 	 * 
 	 */
-	public void create(User user) {
-		userDao.insert(user);
+	public void save(UserDTO user) {
+		userDao.save(mapper.map(user, User.class));
 	}
 
 	/**
 	 * Return the number of active users.
 	 * @return
 	 */
-	public int countUsers() {
-		return userDao.countAll();
+	public long countUsers() {
+		return userDao.count();
 	}
 
 	/**
-	 * Return all Users that match the filter fields that are not null.
+	 * Return all UserDTOs that match the filter fields that are not null.
 	 * @param param
 	 * @return
 	 */
-	public User getByEmail(String email) {
-		return userDao.getByEmail(email);
-	}
-	
-	public User getByIdFb(String idFb) {
-		return userDao.getByIdFb(idFb);
-	}
-
-	public void update(User user) {
-		userDao.update(user);
+	public UserDTO getByEmail(String email) {
+		User user = userDao.findOneByEmail(email);
+		if (user != null)
+			return mapper.map(user, UserDTO.class);
+		return null;
 	}
 
 
@@ -60,14 +60,21 @@ public class UserServiceImpl implements UserService{
 	 * @param iduser
 	 * @return
 	 */
-	public User load(Integer iduser) {
-		User load = userDao.findById(iduser);
-		return load;
+	public UserDTO load(Integer iduser) {
+		User user = userDao.findById(iduser).get();
+		if (user != null)
+			return mapper.map(user, UserDTO.class);
+		return null;
 	}
 
 	@Override
-	public List<User> getAll() {
-		return new ArrayList<User>(userDao.getAll());
+	public List<UserDTO> getAll() {
+		return ListMapper.mapList(mapper, userDao.findAll(), UserDTO.class); 
+	}
+
+	@Override
+	public UserDTO getByIdFb(String id) {
+		return mapper.map(userDao.findOneByIdUserFB(id), UserDTO.class);
 	}
 
 }

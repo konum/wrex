@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import org.wrex.domain.User;
+import org.wrex.api.domain.UserDTO;
+import org.wrex.entities.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:test-config.xml" })
@@ -24,15 +25,15 @@ public class UserServiceTest {
 
 	@Test
 	public void getUser() {
-		Assert.assertEquals("Wrex Admin",service.load(1).getName());
+		Assert.assertEquals("konum",service.load(1).getName());
 	}
 
 	@Test
 	@Transactional
 	public void updateUser() {
-		User konum = service.load(1);
+		UserDTO konum = service.load(1);
 		konum.setName("change");
-		service.update(konum);
+		service.save(konum);
 		Assert.assertEquals("change",service.load(1).getName());
 	}
 }

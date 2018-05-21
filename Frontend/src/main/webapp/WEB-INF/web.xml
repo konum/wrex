@@ -1,5 +1,5 @@
-<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	version="3.0"
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 	<display-name>$application.name</display-name>
 	<servlet>
@@ -18,6 +18,21 @@
 		<param-name>com.ocpsoft.pretty.DEVELOPMENT</param-name>
 		<param-value>false</param-value>
 	</context-param>
+
+	<context-param>
+		<param-name>primefaces.UPLOADER</param-name>
+		<param-value>commons</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
 	<!-- context params -->
 	<!-- development mode -->
 	<context-param>
@@ -31,8 +46,8 @@
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Production</param-value>
-		<!-- Development stages shows the warning: The form component needs to have a UIForm in its ancestry. Suggestion: enclose the necessary components within <h:form>
-		 	 Its just a warning and you can ignore it.-->
+		<!-- Development stages shows the warning: The form component needs to have a UIForm in its ancestry. 
+			Suggestion: enclose the necessary components within <h:form> Its just a warning and you can ignore it. -->
 	</context-param> <!-- Development, UnitTest, SystemTest, Production -->
 
 	<context-param>
@@ -127,28 +142,28 @@
 		<extension>svg</extension>
 		<mime-type>image/svg+xml</mime-type>
 	</mime-mapping>
-	
-<!-- 	Uncomment this to deploy to tomcat -->
-<!-- 	<filter> -->
-<!-- 		<filter-name>ExpiresFilter</filter-name> -->
-<!-- 		<filter-class>org.apache.catalina.filters.ExpiresFilter</filter-class> -->
-<!-- 		<init-param> -->
-<!-- 			<param-name>ExpiresByType image</param-name> -->
-<!-- 			<param-value>access plus 12 months</param-value> -->
-<!-- 		</init-param> -->
-<!-- 		<init-param> -->
-<!-- 			<param-name>ExpiresByType text/css</param-name> -->
-<!-- 			<param-value>access plus 1 month</param-value> -->
-<!-- 		</init-param> -->
-<!-- 		<init-param> -->
-<!-- 			<param-name>ExpiresByType application/javascript</param-name> -->
-<!-- 			<param-value>access plus 1 month</param-value> -->
-<!-- 		</init-param> -->
-<!-- 	</filter> -->
 
-<!-- 	<filter-mapping> -->
-<!-- 		<filter-name>ExpiresFilter</filter-name> -->
-<!-- 		<url-pattern>/*</url-pattern> -->
-<!-- 		<dispatcher>REQUEST</dispatcher> -->
-<!-- 	</filter-mapping> -->
+	<!-- Uncomment this to deploy to tomcat -->
+	<!-- <filter> -->
+	<!-- <filter-name>ExpiresFilter</filter-name> -->
+	<!-- <filter-class>org.apache.catalina.filters.ExpiresFilter</filter-class> -->
+	<!-- <init-param> -->
+	<!-- <param-name>ExpiresByType image</param-name> -->
+	<!-- <param-value>access plus 12 months</param-value> -->
+	<!-- </init-param> -->
+	<!-- <init-param> -->
+	<!-- <param-name>ExpiresByType text/css</param-name> -->
+	<!-- <param-value>access plus 1 month</param-value> -->
+	<!-- </init-param> -->
+	<!-- <init-param> -->
+	<!-- <param-name>ExpiresByType application/javascript</param-name> -->
+	<!-- <param-value>access plus 1 month</param-value> -->
+	<!-- </init-param> -->
+	<!-- </filter> -->
+
+	<!-- <filter-mapping> -->
+	<!-- <filter-name>ExpiresFilter</filter-name> -->
+	<!-- <url-pattern>/*</url-pattern> -->
+	<!-- <dispatcher>REQUEST</dispatcher> -->
+	<!-- </filter-mapping> -->
 </web-app>
