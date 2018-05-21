@@ -8,6 +8,9 @@ One of the more pain in the ass parts in any project, is to get the environment 
 
 The main technologies are Primefaces, Spring and Spring Data , with maven to do all the building.  
 
+![alt tag](https://github.com/konum/wrex/blob/master/screenshot.png?raw=true)
+
+
 # What does includes?
 - A backend project for the data access and service layers, with all Database related stuff in it.
 - An api layer with interfaces and DTOS.
