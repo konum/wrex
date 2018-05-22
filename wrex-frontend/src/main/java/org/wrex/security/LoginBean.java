@@ -17,7 +17,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.wrex.api.domain.UserDTO;
 import org.wrex.bean.ImageService;
-import org.wrex.entities.User;
 import org.wrex.service.UserService;
 import org.wrex.utils.JsfUtils;
 import org.wrex.utils.PasswordUtil;

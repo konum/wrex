@@ -8,12 +8,12 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 import org.springframework.stereotype.Component;
-import org.wrex.entities.User;
+import org.wrex.api.domain.UserDTO;
 /**
  *
- * <p>Title: UserConverter</p>
+ * <p>Title: UserDTOConverter</p>
  *
- * <p>Description: JSF converter UserConverter </p>
+ * <p>Description: JSF converter UserDTOConverter </p>
  *
  */
 @FacesConverter(value="userConverter")
@@ -23,7 +23,7 @@ public class UserConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent ui, String value) {
-        User user = new User();
+        UserDTO user = new UserDTO();
         
 	    user.setIduser(java.lang.Integer.valueOf(value.split(";")[0]));
 	    user.setName(value.split(";")[1]);
@@ -34,7 +34,7 @@ public class UserConverter implements Converter {
     public String getAsString(FacesContext context, UIComponent ui, Object object) {
 		if (object==null)
             return "";
-		User user = ((User) object);
+		UserDTO user = ((UserDTO) object);
 		return user.getIduser().toString().concat(";").concat(user.getName());
     }
 	

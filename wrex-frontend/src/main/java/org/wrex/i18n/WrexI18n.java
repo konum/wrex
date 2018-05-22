@@ -28,7 +28,8 @@ public class WrexI18n extends ResourceBundle {
         return parent.getObject(key);
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Enumeration getKeys() {
         return parent.getKeys();
     }

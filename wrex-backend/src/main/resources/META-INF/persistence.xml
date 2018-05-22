@@ -5,9 +5,9 @@
              version="2.0">
     <persistence-unit name="wrexPersistence" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>org.wrex.domain.User</class>
-        <class>org.wrex.domain.Post</class>
-        <class>org.wrex.domain.Event</class>
+        <class>org.wrex.entities.User</class>
+        <class>org.wrex.entities.Post</class>
+        <class>org.wrex.entities.Event</class>
         <properties>
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />

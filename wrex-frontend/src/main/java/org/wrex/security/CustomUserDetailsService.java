@@ -27,7 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
-        if (domainUser.getStatus() == org.wrex.entities.User.INACTIVE)
+        if (domainUser.getStatus() == org.wrex.api.domain.UserDTO.INACTIVE)
         	accountNonLocked = false;
         return new User(
             domainUser.getEmail(),

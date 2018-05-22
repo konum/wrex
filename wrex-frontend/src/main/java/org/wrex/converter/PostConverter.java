@@ -8,12 +8,12 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 import org.springframework.stereotype.Component;
-import org.wrex.entities.Post;
+import org.wrex.api.domain.PostDTO;
 /**
  *
- * <p>Title: PostConverter</p>
+ * <p>Title: PostDTOConverter</p>
  *
- * <p>Description: JSF converter PostConverter </p>
+ * <p>Description: JSF converter PostDTOConverter </p>
  *
  */
 @FacesConverter(value="postConverter")
@@ -23,7 +23,7 @@ public class PostConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent ui, String value) {
-        Post post = new Post();
+        PostDTO post = new PostDTO();
 	    post.setIdpost(java.lang.Integer.valueOf(value));
     	return post;
     }
@@ -32,7 +32,7 @@ public class PostConverter implements Converter {
     public String getAsString(FacesContext context, UIComponent ui, Object object) {
 		if (object==null)
             return "";
-		return ((Post) object).getIdpost().toString();
+		return ((PostDTO) object).getIdpost().toString();
     }
 	
 

@@ -6,7 +6,6 @@ import javax.faces.bean.RequestScoped;
 
 import org.primefaces.context.RequestContext;
 import org.wrex.api.domain.UserDTO;
-import org.wrex.entities.User;
 import org.wrex.service.UserService;
 import org.wrex.utils.JsfUtils;
 import org.wrex.utils.PasswordUtil;
@@ -28,9 +27,9 @@ public class RegisterBean {
 		if (!register.getPassword().equals(repeteadPassword)){
 			JsfUtils.succesMessageLocale("user_errorPassword");
 		}else if (!emailExist()){
-			register.setRole(User.__DEFAULT_ROLE);
+			register.setRole(UserDTO.__DEFAULT_ROLE);
 			register.setPassword(PasswordUtil.encrypPassword(register.getPassword()));
-			register.setStatus(User.ACTIVE); //you cand implement some kind of mail activation
+			register.setStatus(UserDTO.ACTIVE); //you cand implement some kind of mail activation
 			register.setIdpicture("nouser.jpg");
 			//Example code of activation email
 //			List<String> mail = new ArrayList<String>();
