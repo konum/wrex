@@ -4,14 +4,16 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import org.wrex.api.domain.UserDTO;
-import org.wrex.entities.User;
+import org.wrex.dto.DriverDTO;
+import org.wrex.dto.UsersDTO;
+import org.wrex.entities.Driver;
+import org.wrex.entities.Users;
 
 @Mapper
 public interface UserMapper {
 	UserMapper INSTANCE = Mappers.getMapper( UserMapper.class );
     
-    UserDTO userToUserDTO(User user); 
-    User userDtoToUser(UserDTO user); 
-    List<UserDTO> listToDTOList(List<User> source);
+	UsersDTO entityToDTO(Users driver); 
+	Users dtoToEntity(UsersDTO driver); 
+    List<UsersDTO> listToDTOList(List<Users> source);
 }

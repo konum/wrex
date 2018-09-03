@@ -4,33 +4,31 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import org.wrex.dao.UserRepository;
-import org.wrex.entities.User;
+import org.wrex.dao.VehicleRepository;
+import org.wrex.entities.Vehicle;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:integrationTest-config.xml" })
-public class UserDaoTest {
+public class VehicleDaoTest {
 
 	@Autowired
-	UserRepository userDao;
+	VehicleRepository userDao;
 
 	@Test
 	@Transactional
 	public void createUser() {
-		User test = new User();
-		test.setName("test");
-		test.setPassword("asd");
+		Vehicle test = new Vehicle();
+		test.setPlate("XXXX-22");
 		userDao.save(test);
-		Assert.assertEquals(3, userDao.count());
+		Assert.assertEquals(5, userDao.count());
 	}
 
 	@Test
 	@Transactional
 	public void getAll() {
-		Assert.assertEquals(2, userDao.count());
+		Assert.assertEquals(4, userDao.count());
 	}
 }

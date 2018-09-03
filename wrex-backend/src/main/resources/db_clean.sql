@@ -24,30 +24,35 @@ CREATE TABLE `hibernate_sequence` (
 -- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `vehicle`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user` (
-  `idUser` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  `email` varchar(65) DEFAULT NULL,
-  `password` varchar(45) NOT NULL,
-  `role` int(11) NOT NULL DEFAULT '0',
-  `idPicture` varchar(20) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
-  `idUserFB` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`idUser`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+CREATE TABLE `vehicle` (
+  `plate` varchar(10) NOT NULL ,
+  `gas` varchar(45) NULL,
+  `vehicle_type` varchar(65) DEFAULT NULL,
+  `details` varchar(45) NULL,
+  `year` varchar(45) NULL,
+  `brand` varchar(45) NULL,
+  `model` varchar(10) NULL,
+  `chofer` varchar(45) NULL,
+  `soap_date` date NULL,
+  `tyres` varchar(45) NULL,
+  `last_maintenance` date NULL,
+  `next_inspection` date NULL,
+  PRIMARY KEY (`plate`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `user`
 --
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Wrex Admin','admin@wrex.org','4d186321c1a7f0f354b297e8914ab240',1,'user30-Emp.jpg',1,''),(2,'Wrex user','user@wrex.org','4d186321c1a7f0f354b297e8914ab240',0,'user1-ygN.jpg',1,'');
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+LOCK TABLES `vehicle` WRITE;
+INSERT INTO `vehicle` VALUES ('FYJA-44','gasolina','Camioneta','coche alcalde','2017','Honda','Hilux','22222222-2','2019-02-26','214-55 R18','2018-06-26','2018-10-26');
+INSERT INTO `vehicle` VALUES ('JYSH-22','diesel','Bus','Bus escolar','2017','Honda','Hilux','22222222-2','2019-02-26','214-55 R18','2018-06-26','2018-10-26');
+INSERT INTO `vehicle` VALUES ('UKWH-33','gasolina','Tractor','JAC','2017','Honda','Hilux','11111111-1','2019-02-26','214-55 R18','2018-06-26','2018-10-26');
+INSERT INTO `vehicle` VALUES ('LAKN-55','gasolina','Ambulancia','Ram payne','2017','Honda','Hilux','11111111-1','2019-02-26','214-55 R18','2018-06-26','2018-10-26');
 UNLOCK TABLES;
 
 --
@@ -61,33 +66,46 @@ INSERT INTO `hibernate_sequence` VALUES (30),(30),(30),(30),(30),(30),(30),(30),
 UNLOCK TABLES;
 
 
---
--- Table structure for table `post`
---
+DROP TABLE IF EXISTS `driver`;
+CREATE TABLE `driver` (
+  `rut` varchar(10) NOT NULL ,
+  `name` varchar(45) NULL,
+	PRIMARY KEY (`rut`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `post`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `post` (
-  `idPost` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) DEFAULT NULL,
-  `post` varchar(2000) DEFAULT NULL,
-  `postDate` datetime NOT NULL,
-  `idUser` int(11),
-  PRIMARY KEY (`idPost`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `driver` values ('22222222-2', 'Walter');
+INSERT INTO `driver` values ('11111111-1', 'Danilo');
 
---
--- Dumping data for table `post`
---
+DROP TABLE IF EXISTS `entry`;
+CREATE TABLE `entry` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `info` varchar(1000) NOT NULL ,
+  `plate` varchar(10) NOT NULL,
+  `date` DATE NOT NULL,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `post` WRITE;
-/*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (3,'Post example','This is a first post example','2015-06-26 01:00:00',1),(4,'Second post','Second post by the same user','2015-07-04 00:23:00',1);
-/*!40000 ALTER TABLE `post` ENABLE KEYS */;
-UNLOCK TABLES;
+ALTER TABLE `entry` 
+ADD INDEX `plateFK_idx` (`plate` ASC);
 
+ALTER TABLE `entry` 
+ADD CONSTRAINT `plateFK`
+  FOREIGN KEY (`plate`)
+  REFERENCES `vehicle` (`plate`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
+INSERT INTO `entry` values (1,'Reparacion 1','FYJA-44','2019-02-26');
+INSERT INTO `entry` values (2,'Reparacion 2','FYJA-44','2019-02-27');
+INSERT INTO `entry` values (3,'Reparacion 3','FYJA-44','2019-03-12');
 
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL ,
+  `name` varchar(100) NOT NULL,
+	PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
+INSERT INTO `users` values ('konum','hola','Guillermo Gefaell');
+INSERT INTO `users` values ('cbueno','8819','Cecilia Bueno');
